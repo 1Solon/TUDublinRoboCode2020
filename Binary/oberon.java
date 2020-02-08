@@ -56,6 +56,7 @@ public class Oberon extends Robot
 				if(enemyb == 180 || enemyb == 0)
 				{
 
+					//fires
 					fire();
 
 				} //end if
@@ -64,6 +65,8 @@ public class Oberon extends Robot
 
 					//turns radar right
 					turnRadarRight(8);
+					//fires;
+					fire();
 
 				} //end else if
 				else if(enemyb > 180)
@@ -71,11 +74,14 @@ public class Oberon extends Robot
 
 					//turns radar left
 					turnRadarRight(-8);
+					//fires
+					fire();
 
 				} //end else if
 				else
 				{
 
+					//runs locate
 					locate();
 
 				} //ends else
