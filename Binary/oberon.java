@@ -9,8 +9,6 @@ import java.util.Random;
 public class Oberon extends Robot
 {
 
-	Random rand = newRandom();
-
 	//main
 	public void run()
 	{
@@ -21,6 +19,9 @@ public class Oberon extends Robot
 		int maxPlayHeight, maxPlayWidth;
 		maxPlayHeight = getbattlefieldHeight - )getSenturyBoaderSize * 2);
 		maxPlayWidth = getBattlefieldWidth - )getsenturyBoaderSize * 2);
+
+		//ginicialises rand
+		Random rand = newRandom();
 
 		//get enemy energy
 		int enemyEnergy = 100;
