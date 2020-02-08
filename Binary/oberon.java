@@ -1,17 +1,22 @@
 package oberon.pack;
-import robocode.*;
-//import java.awt.Color;
+
+
 import java.util.Random;
+import robocode.*;
+
+
 
 /**
  * Oberon - a robot by (Alan Byju, Paul Geoghegan and Saul Burgess)
  */
-public class Oberon extends Robot
+public class Oberon extends AdvancedRobot
 {
 
 	//main
 	public void run()
 	{
+
+		Random rand = new Random();
 
 		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
 
