@@ -1,10 +1,7 @@
 package oberon.pack;
 
-
 import java.util.Random;
 import robocode.*;
-
-
 
 /**
  * Oberon - a robot by (Alan Byju, Paul Geoghegan and Saul Burgess)
@@ -39,13 +36,13 @@ public class Oberon extends AdvancedRobot
 		while(true)
 		{
 
-			//sets enemy energy to -1 for use in if statement
+			//sets enemy v and b to -1 for use in if statement
 			enemyV = -1;
 			enemyB = -1;
 
 			//gets enemy velocity and bareing
 			enemyV = getVelocity;
-			enemyB = getbearing;
+			enemyB = getBearing;
 
 			//checks if Oberon got enemy energy
 			if(enemyV == -1 && enemyB == -1)
