@@ -1,10 +1,6 @@
-package oberon.pack;
-
-
-import java.util.Random;
+package Oberon;
 import robocode.*;
-
-
+import java.util.Random;
 
 /**
  * Oberon - a robot by (Alan Byju, Paul Geoghegan and Saul Burgess)
@@ -22,8 +18,8 @@ public class Oberon extends AdvancedRobot
 
 		// variables for max play space
 		int maxPlayHeight, maxPlayWidth;
-		maxPlayHeight = getbattlefieldHeight - )getSenturyBoaderSize * 2);
-		maxPlayWidth = getBattlefieldWidth - )getsenturyBoaderSize * 2);
+		maxPlayHeight = getBattleFieldHeight() - (getSentryBorderSize() * 2);
+		maxPlayWidth = getBattleFieldWidth() - (getSentryBorderSize() * 2);
 
 		//get enemy energy
 		int enemyEnergy = 100;
@@ -41,8 +37,8 @@ public class Oberon extends AdvancedRobot
 			enemyB = -1;
 
 			//gets enemy velocity and bareing
-			enemyV = getVelocity;
-			enemyB = getbearing;
+			enemyV = getVelocity();
+			enemyB = getBearing();
 
 			//checks if Oberon got enemy energy
 			if(enemyV == -1 && enemyB == -1)
@@ -56,14 +52,14 @@ public class Oberon extends AdvancedRobot
 			{
 
 				//checks what direction enemy is heading
-				if(enemyb == 180 || enemyb == 0)
+				if(enemyB == 180 || enemyB == 0)
 				{
 
 					//fires
 					fire();
 
 				} //end if
-				else if(enemyb < 180)
+				else if(enemyB < 180)
 				{
 
 					//turns radar right
@@ -72,7 +68,7 @@ public class Oberon extends AdvancedRobot
 					fire();
 
 				} //end else if
-				else if(enemyb > 180)
+				else if(enemyB > 180)
 				{
 
 					//turns radar left
@@ -145,4 +141,8 @@ public class Oberon extends AdvancedRobot
 
 	} //end on hit wall
 
+
+  // Declares Fire
+  public void fire(){}
+  
 } //end oberon
