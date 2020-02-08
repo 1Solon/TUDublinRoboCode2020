@@ -1,12 +1,15 @@
 package oberon.pack;
 import robocode.*;
 //import java.awt.Color;
+import java.util.Random;
 
 /**
  * Oberon - a robot by (Alan Byju, Paul Geoghegan and Saul Burgess)
  */
 public class Oberon extends Robot
 {
+
+	Random rand = newRandom();
 
 	//main
 	public void run()
@@ -30,7 +33,25 @@ public class Oberon extends Robot
 		while(true)
 		{
 
+			enemyV = -1;
+			enemyB = -1;
 
+			enemyV = getVelocity;
+			enemyB = getbearing;
+
+
+			if(enemyV == -1 && enemyB == -1)
+			{
+
+				locate();
+
+			} //end if
+			else
+			{
+
+				
+
+			} //end else
 
 		} //end main loop
 	} //end main
@@ -39,9 +60,23 @@ public class Oberon extends Robot
 	public void locate()
 	{
 
+		dir = rand(2);
 
+		//checks which direction to turn
+		if(dir == 0)
+		{
 
-} // end locate
+			turnRadarRight(360);
+
+		} // end if
+		else
+		{
+
+			turnRadarRight(-360);
+
+		} //end else
+
+	} // end locate
 
 	//when a robot is scanned
 	public void onScannedRobot(ScannedRobotEvent e)
@@ -52,20 +87,6 @@ public class Oberon extends Robot
 
 		enemyV = getVelocity;
 		enemyB = getbearing;
-
-		if(enemyV == -1 && enemyB == -1)
-		{
-
-			locate();
-
-		} //end if
-		else
-		{
-
-			
-
-		} //end else
-
 
 	}
 
