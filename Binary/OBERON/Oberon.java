@@ -8,30 +8,28 @@ import java.util.Random;
 public class Oberon extends AdvancedRobot
 {
 
+	//declairs rand for use in locate
+	Random rand = new Random();
+
 	//main
 	public void run()
 	{
 
-		Random rand = new Random();
-
 		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
 
 		// variables for max play space
-		int maxPlayHeight, maxPlayWidth;
+		double maxPlayHeight, maxPlayWidth;
 
 		//gets max height and with so that Oberon won't leave valid playspace and get shot at by century bot
 		maxPlayHeight = getBattleFieldHeight() - (getSentryBorderSize() * 2);
 		maxPlayWidth = getBattleFieldWidth() - (getSentryBorderSize() * 2);
 
-		// declairs random utility
-		Random rand = newRandom();
-
 		// Declairs variables to keep track of enemy energy so that we can check if they have fired
-		int enemyEnergy = 100;
-		int currentEnemyEnergy;
+		double enemyEnergy = 100;
+		double currentEnemyEnergy;
 
 		// Declairs variables for keeping track of enemy position and movement
-		int enemyV, enemyB;
+		double enemyV, enemyB;
 
 		// Robot main loop
 		while(true)
@@ -103,7 +101,7 @@ public class Oberon extends AdvancedRobot
 	{
 
 		// uses dir to store a random value which determins the direction to turn
-		int dir = rand(2);
+		int dir = rand.nextInt(2);
 
 		//checks which direction to turn based on random number stored in dir
 		if(dir == 0)
