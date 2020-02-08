@@ -33,23 +33,53 @@ public class Oberon extends Robot
 		while(true)
 		{
 
+			//sets enemy energy to -1 for use in if statement
 			enemyV = -1;
 			enemyB = -1;
 
+			//gets enemy velocity and bareing
 			enemyV = getVelocity;
 			enemyB = getbearing;
 
-
+			//checks if Oberon got enemy energy
 			if(enemyV == -1 && enemyB == -1)
 			{
 
+				//goes to locate
 				locate();
 
 			} //end if
 			else
 			{
 
-				
+				//checks what direction enemy is heading
+				if(enemyb == 180 || enemyb == 0)
+				{
+
+					fire();
+
+				} //end if
+				else if(enemyb < 180)
+				{
+
+					//turns radar right
+					turnRadarRight(8);
+
+				} //end else if
+				else if(enemyb > 180)
+				{
+
+					//turns radar left
+					turnRadarRight(-8);
+
+				} //end else if
+				else
+				{
+
+					locate();
+
+				} //ends else
+
 
 			} //end else
 
