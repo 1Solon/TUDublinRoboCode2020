@@ -21,6 +21,9 @@ public class Oberon extends AdvancedRobot
 		maxPlayHeight = getBattleFieldHeight() - (getSentryBorderSize() * 2);
 		maxPlayWidth = getBattleFieldWidth() - (getSentryBorderSize() * 2);
 
+		//ginicialises rand
+		Random rand = newRandom();
+
 		//get enemy energy
 		int enemyEnergy = 100;
 		int currentEnemyEnergy;
@@ -32,7 +35,7 @@ public class Oberon extends AdvancedRobot
 		while(true)
 		{
 
-			//sets enemy energy to -1 for use in if statement
+			//sets enemy v and b to -1 for use in if statement
 			enemyV = -1;
 			enemyB = -1;
 
@@ -144,5 +147,5 @@ public class Oberon extends AdvancedRobot
 
   // Declares Fire
   public void fire(){}
-  
+
 } //end oberon
