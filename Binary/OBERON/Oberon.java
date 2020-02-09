@@ -30,7 +30,7 @@ public class Oberon extends AdvancedRobot
 
 	// Declairs variables to keep track of enemy energy so that we can check if they have fired
 	double enemyE = 100;
-	double CE;
+	double CE = 0;
 
 		////enemy info
 	double enemyD;
@@ -45,7 +45,7 @@ public class Oberon extends AdvancedRobot
 		setTurnRadarRight(36000);
 
 	//generates move
-	move = rand(400)+100;
+	move = rand(400+100);
 
 	//checks if movement is within bounds
 	if((x + move) < (maxPlayHeight - century) || (x + move) < (maxPlayWidth - century) || (x + move) > (maxPlayHeight - century) || (x + move) > (maxPlayWidth - century))
