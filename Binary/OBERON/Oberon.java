@@ -3,22 +3,29 @@ import robocode.*;
 import java.util.Random;
 import static robocode.util.Utils.normalRelativeAngleDegrees;
 
+
 /**
  * Oberon - a robot by (Alan Byju, Paul Geoghegan and Saul Burgess)
  */
+
+
 public class Oberon extends AdvancedRobot
 {
-
 	//declairs rand for use in locate
 	Random rand = new Random();
 	double enemyV, enemyB;
 	byte scanDirection = 1;
 
+
 	//main
 	public void run()
 	{
-
 		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
+
+		//Stuff to make the radar do stuff and things
+		setAdjustRadarForGunTurn(true);
+		setTurnRadarRight(36000);
+		execute();
 
 		// variables for max play space
 		double maxPlayHeight, maxPlayWidth;
@@ -30,8 +37,8 @@ public class Oberon extends AdvancedRobot
 		// Declairs variables to keep track of enemy energy so that we can check if they have fired
 		double enemyEnergy = 100;
 		double currentEnemyEnergy;
-
 	} //end main
+
 
 	//fires at the enemy robot
 	public void runGun()
