@@ -20,10 +20,14 @@ public class Oberon extends AdvancedRobot
 	int move;
 	int x;
 	int y;
+	double century;
+
+	//gets century area
+	century = getSentryBorderSize();
 
 	//gets max height and with so that Oberon won't leave valid playspace and get shot at by century bot
-	int maxPlayHeight = getBattleFieldHeight();
-	int maxPlayWidth = getBattleFieldWidth();
+	double maxPlayHeight = getBattleFieldHeight();
+	double maxPlayWidth = getBattleFieldWidth();
 
 	// Declairs variables to keep track of enemy energy so that we can check if they have fired
 	double enemyE = 100;
