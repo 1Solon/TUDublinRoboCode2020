@@ -16,6 +16,11 @@ public class Oberon extends AdvancedRobot
 	double enemyV, enemyB;
 	byte scanDirection = 1;
 
+	// Oberon info
+	int move;
+	int x;
+	int y;
+
 	// variables for max play space
 	double maxPlayHeight, maxPlayWidth;
 
@@ -38,9 +43,42 @@ public class Oberon extends AdvancedRobot
 		//Stuff to make the radar do stuff and things
 		setAdjustRadarForGunTurn(true);
 		setTurnRadarRight(36000);
-		execute();s
+
+	//generates move
+	move = rand(400)+100;
+
+	//checks if movement is within bounds
+	if((x + move) < (maxPlayHeight - century) || (x + move) < (maxPlayWidth - century) || (x + move) > (maxPlayHeight - century) || (x + move) > (maxPlayWidth - century))
+	{
+
+		// moves forward
+		setAhead(move);
+
+	} // end if
+
+		//movement
+		setAhead(move);
+
+		execute();
 	} //end main
 
+
+	//when a robot is scanned by the radar this method will run
+	public void onScannedRobot(ScannedRobotEvent e)
+	{
+
+	scanDirection *= -1; // changes value from 1 to -1
+	setTurnRadarRight(360 * scanDirection);
+
+	//get enemy energy
+	enemyCE = getEnergy();
+
+	if(enemyCE != enemyE)
+	{
+
+		enemyE = enemyCE;
+
+	} //end if
 
 	//fires at the enemy robot
 	public void runGun()
@@ -50,12 +88,8 @@ public class Oberon extends AdvancedRobot
 
 	} //end fire method
 
-	//when a robot is scanned by the radar this method will run
-	public void onScannedRobot(ScannedRobotEvent e)
-	{
-
-	scanDirection *= -1; // changes value from 1 to -1
-	setTurnRadarRight(360 * scanDirection);
+	//gets enemy info
+	enemyD = getDistance();
 
 	} // end scanned robot event/method
 
