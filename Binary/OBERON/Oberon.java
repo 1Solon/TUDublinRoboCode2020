@@ -16,6 +16,19 @@ public class Oberon extends AdvancedRobot
 	double enemyV, enemyB;
 	byte scanDirection = 1;
 
+	// variables for max play space
+	double maxPlayHeight, maxPlayWidth;
+
+	//gets max height and with so that Oberon won't leave valid playspace and get shot at by century bot
+	maxPlayHeight = getBattleFieldHeight() - (getSentryBorderSize() * 2);
+	maxPlayWidth = getBattleFieldWidth() - (getSentryBorderSize() * 2);
+
+	// Declairs variables to keep track of enemy energy so that we can check if they have fired
+	double enemyE = 100;
+	double CE;
+
+		////enemy info
+	double enemyD;
 
 	//main
 	public void run()
@@ -25,18 +38,7 @@ public class Oberon extends AdvancedRobot
 		//Stuff to make the radar do stuff and things
 		setAdjustRadarForGunTurn(true);
 		setTurnRadarRight(36000);
-		execute();
-
-		// variables for max play space
-		double maxPlayHeight, maxPlayWidth;
-
-		//gets max height and with so that Oberon won't leave valid playspace and get shot at by century bot
-		maxPlayHeight = getBattleFieldHeight() - (getSentryBorderSize() * 2);
-		maxPlayWidth = getBattleFieldWidth() - (getSentryBorderSize() * 2);
-
-		// Declairs variables to keep track of enemy energy so that we can check if they have fired
-		double enemyEnergy = 100;
-		double currentEnemyEnergy;
+		execute();s
 	} //end main
 
 
