@@ -17,30 +17,29 @@ public class Oberon extends AdvancedRobot
 	{
 		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
 
-
 	//declairs rand for use in locate
 	Random rand = new Random();
-	double enemyV, enemyB;
-	byte scanDirection = 1;
+	public static double enemyV, enemyB;
+	public static byte scanDirection = 1;
 
 	// Oberon info
-	int move;
-	int x;
-	int y;
+	public static int move;
+	public static int x;
+	public static int y;
 
 	//gets century area
-	double century = getSentryBorderSize();
+	public static double century = getSentryBorderSize();
 
 	//gets max height and with so that Oberon won't leave valid playspace and get shot at by century bot
-	double maxPlayHeight = getBattleFieldHeight();
-	double maxPlayWidth = getBattleFieldWidth();
+	public static double maxPlayHeight = getBattleFieldHeight();
+	public static double maxPlayWidth = getBattleFieldWidth();
 
 	// Declairs variables to keep track of enemy energy so that we can check if they have fired
-	double enemyE = 100;
-	double enemyCE = 0;
+	public static double enemyE = 100;
+	public static double enemyCE = 0;
 
 		////enemy info
-	double enemyD;
+	public static double enemyD;
 
 		//Stuff to make the radar do stuff and things
 		setAdjustRadarForGunTurn(true);
