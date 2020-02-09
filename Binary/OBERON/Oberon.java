@@ -12,6 +12,7 @@ public class Oberon extends AdvancedRobot
 	//declairs rand for use in locate
 	Random rand = new Random();
 	double enemyV, enemyB;
+	byte scanDirection = 1;
 
 	//main
 	public void run()
@@ -30,95 +31,7 @@ public class Oberon extends AdvancedRobot
 		double enemyEnergy = 100;
 		double currentEnemyEnergy;
 
-		// Robot main loop
-		while(true)
-		{
-
-			//sets enemy v and b to -1 for use in if statement that checks if enemy is in line of sight
-			enemyV = -1;
-			enemyB = -1;
-
-			//gets enemy velocity, bareing and stores them in relevant variables
-			enemyV = getVelocity();
-			enemyB = normalRelativeAngleDegrees(e.getBearing());
-
-			//checks if Oberon got enemy energy or not by checking if the values are still equil to -1 as this value is not one that a robot can have
-			if(enemyV == -1 && enemyB == -1)
-			{
-
-				//goes to the locate method
-				locate();
-
-			} //end if
-			else
-			{
-
-				//checks what direction the enemy is heading in
-				if(enemyB == 180 || enemyB == 0)
-				{
-
-					//fires if the enemy is heading directly towards or away from Oberon
-					runGun();
-
-				} //end if
-				else if(enemyB < 180)
-				{
-
-					//turns radar right in order to keep line of sight on the enemy
-					turnRadarRight(8);
-
-					// Goes to the fire method
-					runGun();
-
-				} //end else if
-				else if(enemyB > 180)
-				{
-
-					//turns radar left in order to keep line of sight on the enemy
-					turnRadarRight(-8);
-
-					// Goes to the fire method
-					runGun();
-
-				} //end else if
-				else
-				{
-
-					// Goes to the locate method
-					locate();
-
-				} //ends else for keeping track of enemy movements
-
-			} //end else for checking if the enemy is in line of sight
-
-		} //end main loop
 	} //end main
-
-
-	// finds robot if Oberon loses line of sight of the enemy
-	public void locate()
-	{
-
-		// uses dir to store a random value which determins the direction to turn
-		int dir = rand.nextInt(2);
-
-		//checks which direction to turn based on random number stored in dir
-		if(dir == 0)
-		{
-
-			//this turns the radar right 360 degrees
-			turnRadarRight(360);
-
-		} // end if
-		else
-		{
-
-			// This turns the radar left 360 degrees
-			turnRadarRight(-360);
-
-		} //end else for chooseing random direction to turn radar
-
-	} // end locate method
 
 	//fires at the enemy robot
 	public void runGun()
@@ -132,7 +45,8 @@ public class Oberon extends AdvancedRobot
 	public void onScannedRobot(ScannedRobotEvent e)
 	{
 
-
+	scanDirection *= -1; // changes value from 1 to -1
+	setTurnRadarRight(360 * scanDirection);
 
 	} // end scanned robot event/method
 
