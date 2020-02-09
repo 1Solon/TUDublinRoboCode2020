@@ -1,6 +1,7 @@
 package Oberon;
 import robocode.*;
 import java.util.Random;
+import static robocode.util.Utils.normalRelativeAngleDegrees;
 
 /**
  * Oberon - a robot by (Alan Byju, Paul Geoghegan and Saul Burgess)
@@ -10,6 +11,7 @@ public class Oberon extends AdvancedRobot
 
 	//declairs rand for use in locate
 	Random rand = new Random();
+	double enemyV, enemyB;
 
 	//main
 	public void run()
@@ -28,9 +30,6 @@ public class Oberon extends AdvancedRobot
 		double enemyEnergy = 100;
 		double currentEnemyEnergy;
 
-		// Declairs variables for keeping track of enemy position and movement
-		double enemyV, enemyB;
-
 		// Robot main loop
 		while(true)
 		{
@@ -40,8 +39,6 @@ public class Oberon extends AdvancedRobot
 			enemyB = -1;
 
 			//gets enemy velocity, bareing and stores them in relevant variables
-			enemyV = getVelocity();
-			enemyB = getBearing();
 
 			//checks if Oberon got enemy energy or not by checking if the values are still equil to -1 as this value is not one that a robot can have
 			if(enemyV == -1 && enemyB == -1)
@@ -132,8 +129,8 @@ public class Oberon extends AdvancedRobot
 	//when a robot is scanned by the radar this method will run
 	public void onScannedRobot(ScannedRobotEvent e)
 	{
-
-		//TEMP
+		enemyV = getVelocity();
+		enemyB = normalRelativeAngleDegrees(e.getBearing());
 
 	} // end scanned robot event/method
 
