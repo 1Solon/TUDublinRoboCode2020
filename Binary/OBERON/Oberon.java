@@ -1,3 +1,6 @@
+//things to look at
+//setTurnGunRight(getHeading() - getGunHeading() + e.getBearing());
+
 package Oberon;
 import robocode.*;
 import java.util.Random;
@@ -12,41 +15,41 @@ import static robocode.util.Utils.normalRelativeAngleDegrees;
 public class Oberon extends AdvancedRobot
 {
 
+	//declairs rand for use in locate
+	Random rand = new Random();
+	double enemyV, enemyB;
+	byte scanDirection = 1;
+
+	// Oberon info
+	int move;
+	int x;
+	int y;
+
+	//gets century area
+	double century = getSentryBorderSize();
+
+	//gets max height and with so that Oberon won't leave valid playspace and get shot at by century bot
+	double maxPlayHeight = getBattleFieldHeight();
+	double maxPlayWidth = getBattleFieldWidth();
+
+	// Declairs variables to keep track of enemy energy so that we can check if they have fired
+	double enemyE = 100;
+	double enemyCE = 0;
+
+		////enemy info
+	double enemyD;
+
 	//main
 	public void run()
 	{
 		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
-
-	//declairs rand for use in locate
-	Random rand = new Random();
-	public static double enemyV, enemyB;
-	public static byte scanDirection = 1;
-
-	// Oberon info
-	public static int move;
-	public static int x;
-	public static int y;
-
-	//gets century area
-	public static double century = getSentryBorderSize();
-
-	//gets max height and with so that Oberon won't leave valid playspace and get shot at by century bot
-	public static double maxPlayHeight = getBattleFieldHeight();
-	public static double maxPlayWidth = getBattleFieldWidth();
-
-	// Declairs variables to keep track of enemy energy so that we can check if they have fired
-	public static double enemyE = 100;
-	public static double enemyCE = 0;
-
-		////enemy info
-	public static double enemyD;
 
 		//Stuff to make the radar do stuff and things
 		setAdjustRadarForGunTurn(true);
 		setTurnRadarRight(36000);
 
 	//generates move
-	move = rand(400+100);
+	move = rand.nextInt(400)+100;
 
 	//checks if movement is within bounds
 	if((x + move) < (maxPlayHeight - century) || (x + move) < (maxPlayWidth - century) || (x + move) > (maxPlayHeight - century) || (x + move) > (maxPlayWidth - century))
@@ -85,7 +88,7 @@ public class Oberon extends AdvancedRobot
 	} //end if
 
 	//gets enemy info
-	enemyD = getDistance();
+//enemyD = e.getDistance;
 
 	} // end scanned robot event/method
 
