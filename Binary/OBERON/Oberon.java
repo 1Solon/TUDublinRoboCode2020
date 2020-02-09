@@ -39,6 +39,8 @@ public class Oberon extends AdvancedRobot
 			enemyB = -1;
 
 			//gets enemy velocity, bareing and stores them in relevant variables
+			enemyV = getVelocity();
+			enemyB = normalRelativeAngleDegrees(e.getBearing());
 
 			//checks if Oberon got enemy energy or not by checking if the values are still equil to -1 as this value is not one that a robot can have
 			if(enemyV == -1 && enemyB == -1)
@@ -56,7 +58,7 @@ public class Oberon extends AdvancedRobot
 				{
 
 					//fires if the enemy is heading directly towards or away from Oberon
-					fire();
+					runGun();
 
 				} //end if
 				else if(enemyB < 180)
@@ -66,7 +68,7 @@ public class Oberon extends AdvancedRobot
 					turnRadarRight(8);
 
 					// Goes to the fire method
-					fire();
+					runGun();
 
 				} //end else if
 				else if(enemyB > 180)
@@ -76,7 +78,7 @@ public class Oberon extends AdvancedRobot
 					turnRadarRight(-8);
 
 					// Goes to the fire method
-					fire();
+					runGun();
 
 				} //end else if
 				else
@@ -119,7 +121,7 @@ public class Oberon extends AdvancedRobot
 	} // end locate method
 
 	//fires at the enemy robot
-	public void fire()
+	public void runGun()
 	{
 
 		//TEMP
@@ -129,8 +131,8 @@ public class Oberon extends AdvancedRobot
 	//when a robot is scanned by the radar this method will run
 	public void onScannedRobot(ScannedRobotEvent e)
 	{
-		enemyV = getVelocity();
-		enemyB = normalRelativeAngleDegrees(e.getBearing());
+
+
 
 	} // end scanned robot event/method
 
