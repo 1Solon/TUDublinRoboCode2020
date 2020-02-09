@@ -11,6 +11,13 @@ import static robocode.util.Utils.normalRelativeAngleDegrees;
 
 public class Oberon extends AdvancedRobot
 {
+
+	//main
+	public void run()
+	{
+		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
+
+
 	//declairs rand for use in locate
 	Random rand = new Random();
 	double enemyV, enemyB;
@@ -30,15 +37,10 @@ public class Oberon extends AdvancedRobot
 
 	// Declairs variables to keep track of enemy energy so that we can check if they have fired
 	double enemyE = 100;
-	double CE = 0;
+	double enemyCE = 0;
 
 		////enemy info
 	double enemyD;
-
-	//main
-	public void run()
-	{
-		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
 
 		//Stuff to make the radar do stuff and things
 		setAdjustRadarForGunTurn(true);
