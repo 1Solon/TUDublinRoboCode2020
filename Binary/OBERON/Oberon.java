@@ -8,138 +8,122 @@ import static robocode.util.Utils.normalRelativeAngleDegrees;
 
 
 /**
- * Oberon - a robot by (Alan Byju, Paul Geoghegan and Saul Burgess)
- */
+ * Oberon - a robot by (Alan Byju, Paul Geoghegan and Saul Burgess)
+ */
 
 
 public class Oberon extends AdvancedRobot
 {
 
-	//declairs rand for use in locate
-	Random rand = new Random();
-	double enemyV, enemyB;
-	byte scanDirection = 1;
+//declairs rand for use in locate
+Random rand = new Random();
+double enemyV, enemyB;
+byte scanDirection = 1;
 
-	// Oberon info
-	double move;
-	double x;
-	double y;
+// Oberon info
+double move;
+double x;
+double y;
 
-	// Declairs variables to keep track of enemy energy so that we can check if they have fired
-	double enemyE = 100;
-	double enemyCE = 0;
+// Declairs variables to keep track of enemy energy so that we can check if they have fired
+double enemyE = 100;
+double enemyCE = 0;
 
-		////enemy info
-	double enemyD;
+////enemy info
+double enemyD;
 
-	//main
-	public void run()
-	{
-		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
+//main
+public void run()
+{
+// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
 
-		//gets max height and with so that Oberon won't leave valid playspace and get shot at by century bot
-		double maxPlayHeight = getBattleFieldHeight();
-		double maxPlayWidth = getBattleFieldWidth();
+//gets max height and with so that Oberon won't leave valid playspace and get shot at by century bot
+double maxPlayHeight = getBattleFieldHeight();
+double maxPlayWidth = getBattleFieldWidth();
 
-		//gets century area
-		double century = getSentryBorderSize();
+//gets century area
+double century = getSentryBorderSize();
 
-		//main loop
-		while(true)
-		{
+//main loop
+while(true)
+{
 
-			//Stuff to make the radar do stuff and things
-			setAdjustRadarForGunTurn(true);
-			setTurnRadarRight(36000);
+//Stuff to make the radar do stuff and things
+setAdjustRadarForGunTurn(true);
+setTurnRadarRight(36000);
 
-			//generates move
-			move = rand.nextInt(80)+20;
+//generates move
+move = rand.nextInt(80)+20;
 
-			//gets coardinates
-			x = getX();
-			y = getY();
-
-
-			//checks if movement is within bounds
-			if((y + move) > (maxPlayHeight - (century*2)))
-			{
-
-				//turns right 60 degrees
-				turnRight(60);
-				move = move*-0.5;
-
-			} //end if
-			else if(x + move) > (maxPlayWidth - (century*2)))
-			{
-
-				//turns right 60 degrees
-				turnRight(60);
-				move = move*-0.5;
-
-			} //end else if
-			else if((y - move) < (century*2))
-			{
-
-				//turns right 60 degrees
-				turnRight(60);
-				move = move*-0.5;
-
-			} //end else if
-			else if((x - move) < (century*2))
-			{
-
-				//turns right 60 degrees
-				turnRight(60);
-				move = move*-0.5;
-
-			} // end if
-
-			//moves Oberon
-			ahead(move);
-
-			//makes sure everything excicutes
-			execute();
-		} //end while
-
-	} //end main
+//gets coardinates
+x = getX();
+y = getY();
 
 
-	//when a robot is scanned by the radar this method will run
-	public void onScannedRobot(ScannedRobotEvent e)
-	{
+//checks if movement is within bounds
+if((y + move) > (maxPlayHeight - (century*2)) || (x + move) > (maxPlayWidth - (century*2)))
+{
 
-	scanDirection *= -1; // changes value from 1 to -1
-	setTurnRadarRight(360 * scanDirection);
+//turns right 60 degrees
+turnRight(60);
+				move = move * - 0.5;
 
-	//get enemy energy
-	enemyCE = getEnergy();
+} //end if
+else if((y - move) < ((century*2)) || (x - move) < ((century*2)))
+{
 
-	if(enemyCE != enemyE)
-	{
+//turns right 60 degrees
+turnRight(60);
+				move = move * -0.5;
 
-		enemyE = enemyCE;
+} // end if
 
-	} //end if
+//moves Oberon
+ahead(move);
 
-	//gets enemy info
+//makes sure everything excicutes
+execute();
+} //end while
+
+} //end main
+
+
+//when a robot is scanned by the radar this method will run
+public void onScannedRobot(ScannedRobotEvent e)
+{
+
+scanDirection *= -1; // changes value from 1 to -1
+setTurnRadarRight(360 * scanDirection);
+
+//get enemy energy
+enemyCE = getEnergy();
+
+if(enemyCE != enemyE)
+{
+
+enemyE = enemyCE;
+
+} //end if
+
+//gets enemy info
 //enemyD = e.getDistance;
 
-	} // end scanned robot event/method
+} // end scanned robot event/method
 
-	//when Oberon is hit by a bullit this method will run
-	public void onHitByBullet(HitByBulletEvent e)
-	{
+//when Oberon is hit by a bullit this method will run
+public void onHitByBullet(HitByBulletEvent e)
+{
 
-		//TEMP
+//TEMP
 
-	} //end when hit by bullit event/method
+} //end when hit by bullit event/method
 
-	//when robot hits wall
-	public void onHitWall(HitWallEvent e)
-	{
+//when robot hits wall
+public void onHitWall(HitWallEvent e)
+{
 
-		//TEMP
+//TEMP
 
-	} //end on hit wall event/method
+} //end on hit wall event/method
 
 } //end oberon
