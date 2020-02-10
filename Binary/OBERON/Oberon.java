@@ -62,7 +62,7 @@ public class Oberon extends AdvancedRobot
 	{
 
 		// moves forward
-		setAhead(move);
+		ahead(move);
 
 	} //end else
 
