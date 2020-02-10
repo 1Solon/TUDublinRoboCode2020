@@ -3,8 +3,8 @@
 
 package Oberon;
 import robocode.*;
-import java.util.Random;
-import static robocode.util.Utils.normalRelativeAngleDegrees;
+import java.util.*;
+import static robocode.util.Utils.*;
 
 
 /**
@@ -24,6 +24,7 @@ public class Oberon extends AdvancedRobot
 	double move;
 	double x;
 	double y;
+	double goAngle;
 
 	// Declairs variables to keep track of enemy energy so that we can check if they have fired
 	double enemyE = 100;
@@ -38,8 +39,8 @@ public class Oberon extends AdvancedRobot
 		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
 
 		//gets max height and with so that Oberon won't leave valid playspace and get shot at by century bot
-		double maxPlayHeight = getBattleFieldHeight();
-		double maxPlayWidth = getBattleFieldWidth();
+		double maxPlayHeight = getBattleFieldHeight() - (getSentryBorderSize() * 2);
+		double maxPlayWidth = getBattleFieldWidth() - (getSentryBorderSize() * 2);
 
 		//gets century area
 		double century = getSentryBorderSize();
@@ -55,36 +56,25 @@ public class Oberon extends AdvancedRobot
 			//generates move
 			move = rand.nextInt(80)+20;
 
-			//gets coardinates
-			x = getX();
-			y = getY();
 
-
-			//checks if movement is within bounds
-			if((y + move) > (maxPlayHeight - (century*2)) || (x + move) > (maxPlayWidth - (century*2)))
-			{
-
-				//turns right 60 degrees
-				turnRight(60);
-
-			} //end if
-			else if((y - move) < ((century*2)) || (x - move) < ((century*2)))
-			{
-
-				//turns right 60 degrees
-				turnRight(60);
-
-			} // end if
-
-			//moves Oberon
-			ahead(move);
-
-			//makes sure everything excicutes
+			//makes sure everything executes
 			execute();
 		} //end while
 
 	} //end main
 
+	//Function to control the botmove system
+	private void BotMove(double x, double y)
+	{
+
+		x = x - getX();
+		y = y - getY();
+
+		double goAngle = Utils.normalRelativeAngle(Math.atan2(x,y) - getHeadingRadians());
+		setTurnRightRadians(Math.atan(Math.tan(goAngle)));
+		setAhead(Math.cos(goAngle) * Math.hypot(x,y));
+
+	}//End BotMove
 
 	//when a robot is scanned by the radar this method will run
 	public void onScannedRobot(ScannedRobotEvent e)
