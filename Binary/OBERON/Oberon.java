@@ -52,7 +52,7 @@ while(true)
 		setTurnRadarRight(36000);
 
 	//generates move
-	move = rand.nextInt(4)+4;
+	move = rand.nextInt(80)+20;
 
 	//gets coardinates
 	x = getX();
