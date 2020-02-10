@@ -24,6 +24,7 @@ public class Oberon extends AdvancedRobot
 	double move;
 	double x;
 	double y;
+	double robotdir = 1;
 
 	// Declairs variables to keep track of enemy energy so that we can check if they have fired
 	double enemyE = 100;
@@ -52,32 +53,7 @@ public class Oberon extends AdvancedRobot
 			setAdjustRadarForGunTurn(true);
 			setTurnRadarRight(36000);
 
-			//generates move
-			move = rand.nextInt(80)+20;
 
-			//gets coardinates
-			x = getX();
-			y = getY();
-
-
-			//checks if movement is within bounds
-			if((y + move) > (maxPlayHeight - (century*1.2)) || (x + move) > (maxPlayWidth - (century*1.2)))
-			{
-
-				//turns right 60 degrees
-				turnRight(60);
-
-			} //end if
-			else if((y - move) < ((century*1.2)) || (x - move) < ((century*1.2)))
-			{
-
-				//turns right 60 degrees
-				turnRight(60);
-
-			} // end if
-
-			//moves Oberon
-			ahead(move);
 
 			//makes sure everything excicutes
 			execute();
@@ -85,6 +61,44 @@ public class Oberon extends AdvancedRobot
 
 	} //end main
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+	// Don't get too close to the walls
+	addCustomEvent(new Condition("tooCloseToBorder") {
+		public boolean test() {
+			return (
+				// we're too close to the left wall
+				(getX() <= century ||
+				 // or we're too close to the right wall
+				 getX() >= getBattleFieldWidth() - century ||
+				 // or we're too close to the bottom wall
+				 getY() <= century ||
+				 // or we're too close to the top wall
+				 getY() >= getBattleFieldHeight() - century)
+				);
+			}
+		});
+
+
+=======
+>>>>>>> f4103203d0b09844851b1f8b39849d252181f42f
+=======
+>>>>>>> f4103203d0b09844851b1f8b39849d252181f42f
+	//Moves the robot according to the normal engagement pattern
+	public void moverobot()
+	{
+
+		setTurnRight(enemyB+90-(10*robotdir));
+
+		if (tooCloseToBorder > 0) tooCloseToBorder--;
+
+		if (getVelocity() == 0){
+			robotdir *= -1;
+			setAhead(10000 * robotdir);
+
+		}//End check if we've stopped
+
+	}//End moverobot
 
 	//when a robot is scanned by the radar this method will run
 	public void onScannedRobot(ScannedRobotEvent e)
@@ -123,5 +137,30 @@ public class Oberon extends AdvancedRobot
 		//TEMP
 
 	} //end on hit wall event/method
+
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> f4103203d0b09844851b1f8b39849d252181f42f
+	// Don't get too close to the walls
+	addCustomEvent(new Condition("tooCloseToBorder") {
+		public boolean test() {
+			return (
+				// we're too close to the left wall
+				(getX() <= century ||
+				 // or we're too close to the right wall
+				 getX() >= getBattleFieldWidth() - century ||
+				 // or we're too close to the bottom wall
+				 getY() <= century ||
+				 // or we're too close to the top wall
+				 getY() >= getBattleFieldHeight() - century)
+				);
+			}
+		});
+<<<<<<< HEAD
+>>>>>>> f4103203d0b09844851b1f8b39849d252181f42f
+=======
+>>>>>>> f4103203d0b09844851b1f8b39849d252181f42f
 
 } //end oberon
