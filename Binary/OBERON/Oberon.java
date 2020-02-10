@@ -21,9 +21,9 @@ public class Oberon extends AdvancedRobot
 	byte scanDirection = 1;
 
 	// Oberon info
-	int move;
-	int x;
-	int y;
+	double move;
+	double x;
+	double y;
 
 	// Declairs variables to keep track of enemy energy so that we can check if they have fired
 	double enemyE = 100;
@@ -75,7 +75,7 @@ while(true)
 
 		execute();
 
-} //end while 
+} //end while
 
 	} //end main
 
