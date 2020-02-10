@@ -58,77 +58,6 @@ public class Oberon extends AdvancedRobot
 			//gets coardinates
 			x = getX();
 			y = getY();
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-
-			//checks if movement is within bounds
-<<<<<<< HEAD
-<<<<<<< HEAD
-			if((y + move) > (maxPlayHeight - (century*1.2)) || (x + move) > (maxPlayWidth - (century*1.2)))
-=======
-			if((y + move) > (maxPlayHeight - (century*2)) || (x + move) > (maxPlayWidth - (century*2)))
->>>>>>> parent of e3b1602... Undo
-=======
-			if((y + move) > (maxPlayHeight - (century*2)) || (x + move) > (maxPlayWidth - (century*2)))
->>>>>>> parent of f410320... V1 New Movement Code
-			{
-
-				//turns right 60 degrees
-				turnRight(60);
-
-			} //end if
-<<<<<<< HEAD
-<<<<<<< HEAD
-			else if((y - move) < ((century*1.2)) || (x - move) < ((century*1.2)))
-=======
-			else if((y - move) < ((century*2)) || (x - move) < ((century*2)))
->>>>>>> parent of e3b1602... Undo
-=======
-			else if((y - move) < ((century*2)) || (x - move) < ((century*2)))
->>>>>>> parent of f410320... V1 New Movement Code
-			{
-
-				//turns right 60 degrees
-				turnRight(60);
-
-			} // end if
-
-			//moves Oberon
-			ahead(move);
-=======
->>>>>>> parent of f410320... V1 New Movement Code
-
-
-			//checks if movement is within bounds
-			if((y + move) > (maxPlayHeight - (century*2)) || (x + move) > (maxPlayWidth - (century*2)))
-			{
-
-<<<<<<< HEAD
-=======
-				//turns right 60 degrees
-				turnRight(60);
-
-			} //end if
-			else if((y - move) < ((century*2)) || (x - move) < ((century*2)))
-			{
-
-				//turns right 60 degrees
-				turnRight(60);
-
-			} // end if
-
-			//moves Oberon
-			ahead(move);
-
-			//makes sure everything excicutes
-			execute();
-		} //end while
-
-	} //end main
-
->>>>>>> parent of f410320... V1 New Movement Code
-=======
 
 
 			//checks if movement is within bounds
@@ -156,7 +85,6 @@ public class Oberon extends AdvancedRobot
 
 	} //end main
 
->>>>>>> parent of f410320... V1 New Movement Code
 
 	//when a robot is scanned by the radar this method will run
 	public void onScannedRobot(ScannedRobotEvent e)
@@ -197,3 +125,15 @@ public class Oberon extends AdvancedRobot
 	} //end on hit wall event/method
 
 } //end oberon
+© 2020 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
