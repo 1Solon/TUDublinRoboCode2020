@@ -64,14 +64,14 @@ while(true)
 	if((y + move) > (maxPlayHeight - century) || (x + move) > (maxPlayWidth - century))
 	{
 
-		turnRight(90);
+		turnRight(60);
 
 	} //end if
 	else if((y - move) < (century) || (x - move) < (century))
 	{
 
 
-		turnRight(90);
+		turnRight(60);
 
 	} // end if
 		execute();
