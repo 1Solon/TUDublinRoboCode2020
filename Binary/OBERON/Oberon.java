@@ -127,6 +127,15 @@ public class Oberon extends AdvancedRobot
 
 	} //end main
 
+>>>>>>> parent of f410320... V1 New Movement Code
+=======
+
+
+			//checks if movement is within bounds
+			if((y + move) > (maxPlayHeight - (century*2)) || (x + move) > (maxPlayWidth - (century*2)))
+			{
+
+				//turns right 60 degrees
 				turnRight(60);
 
 			} //end if
