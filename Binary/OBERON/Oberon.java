@@ -52,7 +52,7 @@ while(true)
 		setTurnRadarRight(36000);
 
 	//generates move
-	move = rand.nextInt(100)+50;
+	move = rand.nextInt(4)+4;
 
 	//gets coardinates
 	x = getX();
@@ -64,15 +64,14 @@ while(true)
 	if((y + move) > (maxPlayHeight - century) || (x + move) > (maxPlayWidth - century))
 	{
 
-		stop();
-		turnRight(90*scanDirection);
+		turnRight(90);
 
 	} //end if
 	else if((y - move) < (century) || (x - move) < (century))
 	{
 
-		stop();
-		turnRight(90*scanDirection);
+
+		turnRight(90);
 
 	} // end if
 		execute();
