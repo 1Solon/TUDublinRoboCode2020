@@ -58,6 +58,8 @@ while(true)
 	x = getX();
 	y = getY();
 
+	ahead(move);
+
 	//checks if movement is within bounds
 	if((y + move) > (maxPlayHeight - century) || (x + move) > (maxPlayWidth - century))
 	{
