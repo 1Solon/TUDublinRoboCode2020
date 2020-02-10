@@ -54,11 +54,15 @@ while(true)
 	//generates move
 	move = rand.nextInt(400)+100;
 
+	//gets coardinates
+	x = getX();
+	y = getY();
+
 	//checks if movement is within bounds
 	if((y + move) > (maxPlayHeight - century) || (x + move) > (maxPlayWidth - century) || (y - move) < (century) || (x - move) < (century))
 	{
 
-		turnRight(180);
+		turnRight(90);
 
 	} // end if
 	else
