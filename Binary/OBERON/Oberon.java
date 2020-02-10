@@ -59,6 +59,7 @@ public class Oberon extends AdvancedRobot
 			x = getX();
 			y = getY();
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 			//checks if movement is within bounds
@@ -106,6 +107,26 @@ public class Oberon extends AdvancedRobot
 <<<<<<< HEAD
 =======
 				//turns right 60 degrees
+				turnRight(60);
+
+			} //end if
+			else if((y - move) < ((century*2)) || (x - move) < ((century*2)))
+			{
+
+				//turns right 60 degrees
+				turnRight(60);
+
+			} // end if
+
+			//moves Oberon
+			ahead(move);
+
+			//makes sure everything excicutes
+			execute();
+		} //end while
+
+	} //end main
+
 				turnRight(60);
 
 			} //end if
