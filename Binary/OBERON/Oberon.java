@@ -59,10 +59,10 @@ while(true)
 	y = getY();
 
 	//checks if movement is within bounds
-	if((y + move) > (maxPlayHeight - century) || (x + move) > (maxPlayWidth - century) || (y - move) < (century) || (x - move) < (century))
+	if(((y + move) > (maxPlayHeight - century) || (x + move) > (maxPlayWidth - century)) || ((y - move) < (century) || (x - move) < (century)))
 	{
 
-		turnRight(90);
+		turnRight(45);
 
 	} // end if
 	else
