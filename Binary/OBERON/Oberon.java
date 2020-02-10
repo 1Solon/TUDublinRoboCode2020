@@ -52,7 +52,7 @@ public class Oberon extends AdvancedRobot
 	move = rand.nextInt(400)+100;
 
 	//checks if movement is within bounds
-	if((x + move) < (maxPlayHeight - century) || (x + move) < (maxPlayWidth - century) || (x + move) > (maxPlayHeight - century) || (x + move) > (maxPlayWidth - century))
+	if((y + move) > (maxPlayHeight - century) || (x + move) > (maxPlayWidth - century) || (y - move) < (century) || (x - move) < (century))
 	{
 
 		turnRight(180);
