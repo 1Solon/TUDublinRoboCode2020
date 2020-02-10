@@ -44,6 +44,9 @@ public class Oberon extends AdvancedRobot
 		//gets century area
 		double century = getSentryBorderSize();
 
+while(true)
+{
+
 		//Stuff to make the radar do stuff and things
 		setAdjustRadarForGunTurn(true);
 		setTurnRadarRight(36000);
@@ -67,6 +70,9 @@ public class Oberon extends AdvancedRobot
 	} //end else
 
 		execute();
+
+} //end while 
+
 	} //end main
 
 
