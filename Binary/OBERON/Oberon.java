@@ -44,39 +44,43 @@ public class Oberon extends AdvancedRobot
 		//gets century area
 		double century = getSentryBorderSize();
 
-while(true)
-{
+		//main loop
+		while(true)
+		{
 
-		//Stuff to make the radar do stuff and things
-		setAdjustRadarForGunTurn(true);
-		setTurnRadarRight(36000);
+			//Stuff to make the radar do stuff and things
+			setAdjustRadarForGunTurn(true);
+			setTurnRadarRight(36000);
 
-	//generates move
-	move = rand.nextInt(80)+20;
+			//generates move
+			move = rand.nextInt(80)+20;
 
-	//gets coardinates
-	x = getX();
-	y = getY();
+			//gets coardinates
+			x = getX();
+			y = getY();
 
-	ahead(move);
+			//moves Oberon
+			ahead(move);
 
-	//checks if movement is within bounds
-	if((y + move) > (maxPlayHeight - century) || (x + move) > (maxPlayWidth - century))
-	{
+			//checks if movement is within bounds
+			if((y + move) > (maxPlayHeight - century) || (x + move) > (maxPlayWidth - century))
+			{
 
-		turnRight(60);
+				//turns right 60 degrees
+				turnRight(60);
 
-	} //end if
-	else if((y - move) < (century) || (x - move) < (century))
-	{
+			} //end if
+			else if((y - move) < (century) || (x - move) < (century))
+			{
 
+				//turns right 60 degrees
+				turnRight(60);
 
-		turnRight(60);
+			} // end if
 
-	} // end if
-		execute();
-
-} //end while
+			//makes sure everything excicutes
+			execute();
+		} //end while
 
 	} //end main
 
