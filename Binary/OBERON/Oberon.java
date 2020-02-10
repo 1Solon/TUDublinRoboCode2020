@@ -61,6 +61,29 @@ public class Oberon extends AdvancedRobot
 
 	} //end main
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+	// Don't get too close to the walls
+	addCustomEvent(new Condition("tooCloseToBorder") {
+		public boolean test() {
+			return (
+				// we're too close to the left wall
+				(getX() <= century ||
+				 // or we're too close to the right wall
+				 getX() >= getBattleFieldWidth() - century ||
+				 // or we're too close to the bottom wall
+				 getY() <= century ||
+				 // or we're too close to the top wall
+				 getY() >= getBattleFieldHeight() - century)
+				);
+			}
+		});
+
+
+=======
+>>>>>>> f4103203d0b09844851b1f8b39849d252181f42f
+=======
+>>>>>>> f4103203d0b09844851b1f8b39849d252181f42f
 	//Moves the robot according to the normal engagement pattern
 	public void moverobot()
 	{
@@ -114,5 +137,30 @@ public class Oberon extends AdvancedRobot
 		//TEMP
 
 	} //end on hit wall event/method
+
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> f4103203d0b09844851b1f8b39849d252181f42f
+	// Don't get too close to the walls
+	addCustomEvent(new Condition("tooCloseToBorder") {
+		public boolean test() {
+			return (
+				// we're too close to the left wall
+				(getX() <= century ||
+				 // or we're too close to the right wall
+				 getX() >= getBattleFieldWidth() - century ||
+				 // or we're too close to the bottom wall
+				 getY() <= century ||
+				 // or we're too close to the top wall
+				 getY() >= getBattleFieldHeight() - century)
+				);
+			}
+		});
+<<<<<<< HEAD
+>>>>>>> f4103203d0b09844851b1f8b39849d252181f42f
+=======
+>>>>>>> f4103203d0b09844851b1f8b39849d252181f42f
 
 } //end oberon
