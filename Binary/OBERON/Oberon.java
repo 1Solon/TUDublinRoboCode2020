@@ -63,14 +63,14 @@ public class Oberon extends AdvancedRobot
 			ahead(move);
 
 			//checks if movement is within bounds
-			if((y + move) > (maxPlayHeight - century) || (x + move) > (maxPlayWidth - century))
+			if((y + move) > (maxPlayHeight - (century*1.2)) || (x + move) > (maxPlayWidth - (century*1.2)))
 			{
 
 				//turns right 60 degrees
 				turnRight(60);
 
 			} //end if
-			else if((y - move) < (century) || (x - move) < (century))
+			else if((y - move) < ((century*1.2)) || (x - move) < ((century*1.2)))
 			{
 
 				//turns right 60 degrees
