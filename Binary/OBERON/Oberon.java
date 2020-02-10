@@ -58,6 +58,7 @@ public class Oberon extends AdvancedRobot
 			//gets coardinates
 			x = getX();
 			y = getY();
+<<<<<<< HEAD
 
 
 			//checks if movement is within bounds
@@ -94,6 +95,30 @@ public class Oberon extends AdvancedRobot
 
 			//moves Oberon
 			ahead(move);
+=======
+>>>>>>> parent of f410320... V1 New Movement Code
+
+
+			//checks if movement is within bounds
+			if((y + move) > (maxPlayHeight - (century*2)) || (x + move) > (maxPlayWidth - (century*2)))
+			{
+
+<<<<<<< HEAD
+=======
+				//turns right 60 degrees
+				turnRight(60);
+
+			} //end if
+			else if((y - move) < ((century*2)) || (x - move) < ((century*2)))
+			{
+
+				//turns right 60 degrees
+				turnRight(60);
+
+			} // end if
+
+			//moves Oberon
+			ahead(move);
 
 			//makes sure everything excicutes
 			execute();
@@ -101,6 +126,7 @@ public class Oberon extends AdvancedRobot
 
 	} //end main
 
+>>>>>>> parent of f410320... V1 New Movement Code
 
 	//when a robot is scanned by the radar this method will run
 	public void onScannedRobot(ScannedRobotEvent e)
