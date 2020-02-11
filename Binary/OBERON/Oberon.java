@@ -88,10 +88,29 @@ execute();
 public void onScannedRobot(ScannedRobotEvent e)
 {
 
+/*
+	if(isSentryRobot == false)
+	{
+*/
+
 scanDirection *= -1; // changes value from 1 to -1
 setTurnRadarRight(360 * scanDirection);
 
-setTurnGunRight(getHeading() - getGunHeading() + e.getBearing());
+	//turns gun towards enemy
+	setTurnGunRight(getHeading() - getGunHeading() + e.getBearing());
+
+	//attacks enemy
+	attack();
+
+/*
+	} //end sentry check
+	else
+	{
+
+		setTurnRadarRight(360 * scanDirection);
+
+	} //end else
+*/
 
 //get enemy energy
 enemyCE = getEnergy();
@@ -106,15 +125,19 @@ enemyE = enemyCE;
 //gets enemy info
 //enemyD = e.getDistance;
 
-		attack();
-
 } // end scanned robot event/method
 
 	//shoots at the enemy
 	public void attack()
 	{
 
-		fire(1)
+		//checks if the gun is ready to fire
+		if(getGunHeat() == 0)
+		{
+
+		fire(1);
+
+		} //end if
 
 	} //end attack
 
