@@ -15,115 +15,124 @@ import static robocode.util.Utils.normalRelativeAngleDegrees;
 public class Oberon extends AdvancedRobot
 {
 
-//declairs rand for use in locate
-Random rand = new Random();
-double enemyV, enemyB;
-byte scanDirection = 1;
+	//declairs rand for use in locate
+	Random rand = new Random();
+	double enemyV, enemyB;
+	byte scanDirection = 1;
 
-// Oberon info
-double move;
-double x;
-double y;
-double Px;
-double Py;
+	// Oberon info
+	double move;
+	double x;
+	double y;
+	double Px;
+	double Py;
 
-// Declairs variables to keep track of enemy energy so that we can check if they have fired
-double enemyE = 100;
-double enemyCE = 0;
+	// Declairs variables to keep track of enemy energy so that we can check if they have fired
+	double enemyE = 100;
+	double enemyCE = 0;
 
-////enemy info
-double enemyD;
+	////enemy info
+	double enemyD;
 
-//main
-public void run()
-{
-// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
+	//main
+	public void run()
+	{
+		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
 
-//gets max height and with so that Oberon won't leave valid playspace and get shot at by century bot
-double maxPlayHeight = getBattleFieldHeight();
-double maxPlayWidth = getBattleFieldWidth();
+		//gets max height and with so that Oberon won't leave valid playspace and get shot at by century bot
+		double maxPlayHeight = getBattleFieldHeight();
+		double maxPlayWidth = getBattleFieldWidth();
 
-//gets century area
-double century = getSentryBorderSize();
+		//gets century area
+		double century = getSentryBorderSize();
 
-//main loop
-while(true)
-{
+		//main loop
+		while(true)
+		{
 
-//Stuff to make the radar do stuff and things
-setAdjustRadarForGunTurn(true);
-setTurnRadarRight(36000);
+			//Stuff to make the radar do stuff and things
+			setAdjustRadarForGunTurn(true);
+			setTurnRadarRight(36000);
 
-//generates move
-move = rand.nextInt(80)+20;
-
-//gets coardinates and defines future coordinates
-x = getX();
-y = getY();
-
-//Generates projected coordinates
-Px = x+Math.sin(getHeading()) * move;
-Py = y+Math.cos(getHeading()) * move;
+			//gets coardinates and defines future coordinates
+			x = getX();
+			y = getY();
 
 
-//checks if movement is within bounds
-if(Py > (maxPlayHeight - (century*2)) || Px > (maxPlayWidth - (century*2)))
-{
-	ahead(move);
-} //end if
+			MoveRobot();
 
-else if((Py - move) < ((century*2)) || (Px - move) < ((century*2)))
-{
-	ahead(move);
-}
+			//makes sure everything excicutes
+			execute();
 
-//moves Oberon
-turnRight(45);
+		}//End While
 
-//makes sure everything excicutes
-execute();
-
-}//End While
-
-} //end main
+	} //end main
 
 
-//when a robot is scanned by the radar this method will run
-public void onScannedRobot(ScannedRobotEvent e)
-{
+	//when a robot is scanned by the radar this method will run
+	public void onScannedRobot(ScannedRobotEvent e)
+	{
 
-scanDirection *= -1; // changes value from 1 to -1
-setTurnRadarRight(360 * scanDirection);
+	scanDirection *= -1; // changes value from 1 to -1
+	setTurnRadarRight(360 * scanDirection);
 
-//get enemy energy
-enemyCE = getEnergy();
+	//get enemy energy
+	enemyCE = getEnergy();
 
-if(enemyCE != enemyE)
-{
+	if(enemyCE != enemyE)
+	{
 
-enemyE = enemyCE;
+	enemyE = enemyCE;
 
-} //end if
+	} //end if
 
-//gets enemy info
-//enemyD = e.getDistance;
+	//gets enemy info
+	//enemyD = e.getDistance;
 
-} // end scanned robot event/method
+	} // end scanned robot event/method
 
-//when Oberon is hit by a bullit this method will run
-public void onHitByBullet(HitByBulletEvent e)
-{
+	//when Oberon is hit by a bullit this method will run
+	public void onHitByBullet(HitByBulletEvent e)
+	{
 
-//TEMP
+	//TEMP
 
-} //end when hit by bullit event/method
+	} //end when hit by bullit event/method
 
-//when robot hits wall
-public void onHitWall(HitWallEvent e)
-{
+	//when robot hits wall
+	public void onHitWall(HitWallEvent e)
+	{
 
-//TEMP
+		//TEMP
 
-} //end on hit wall event/method
+	} //end on hit wall event/method
 
-} //end oberon
+
+	public void MoveRobot ()
+	{
+
+		//generates move
+		move = rand.nextInt(80)+20;
+
+		//Generates projected coordinates
+		Px = x+Math.sin(getHeading()) * move;
+		Py = y+Math.cos(getHeading()) * move;
+
+
+		//checks if movement is within bounds
+		if(Py > (maxPlayHeight - (century*2)) || Px > (maxPlayWidth - (century*2)))
+		{
+			ahead(move);
+		} //end if
+
+		else if((Py - move) < ((century*2)) || (Px - move) < ((century*2)))
+		{
+			ahead(move);
+		}
+
+		//moves Oberon
+		turnRight(45);
+
+	}
+
+}//End Oberon
