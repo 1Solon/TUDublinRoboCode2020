@@ -4,6 +4,7 @@
 package Oberon;
 import robocode.*;
 import java.util.*;
+import java.awt.geom.*;
 import static robocode.util.Utils.*;
 
 
@@ -25,6 +26,11 @@ public class Oberon extends AdvancedRobot
 	double x;
 	double y;
 	double goAngle;
+	double i;
+
+	//Projections
+	double px;
+	double py;
 
 	// Declairs variables to keep track of enemy energy so that we can check if they have fired
 	double enemyE = 100;
@@ -32,6 +38,7 @@ public class Oberon extends AdvancedRobot
 
 		////enemy info
 	double enemyD;
+	static Point2D.Double[] enemyPoints = new Point2D.Double[10];
 
 	//main
 	public void run()
@@ -63,40 +70,35 @@ public class Oberon extends AdvancedRobot
 
 	} //end main
 
-	//Function to control the botmove system
-	private void BotMove(double x, double y)
-	{
-
-		x = x - getX();
-		y = y - getY();
-
-		double goAngle = Utils.normalRelativeAngle(Math.atan2(x,y) - getHeadingRadians());
-		setTurnRightRadians(Math.atan(Math.tan(goAngle)));
-		setAhead(Math.cos(goAngle) * Math.hypot(x,y));
-
-	}//End BotMove
 
 	//when a robot is scanned by the radar this method will run
 	public void onScannedRobot(ScannedRobotEvent e)
 	{
+		int count;
+
+		double absBearing = e.getBearingRadians() + getGunHeading();
+		enemyPoints[count]=new Point2D.Double(getX()+e.getDistance()*Math.sin(absBearing),getY()+e.getDistance()*Math.cos(absBearing));
+		if(++count>=getOthers())
+		{
+    count=0;
+
+		px=x+e.getDistance()*Math.sin(absBearing);
+		py=y+e.getDistance()*Math.cos(absBearing);
+
+	}
 
 	scanDirection *= -1; // changes value from 1 to -1
 	setTurnRadarRight(360 * scanDirection);
 
 	//get enemy energy
 	enemyCE = getEnergy();
-
 	if(enemyCE != enemyE)
 	{
-
 		enemyE = enemyCE;
-
-	} //end if
-
-	//gets enemy info
-//enemyD = e.getDistance;
+	} //end info
 
 	} // end scanned robot event/method
+
 
 	//when Oberon is hit by a bullit this method will run
 	public void onHitByBullet(HitByBulletEvent e)
@@ -105,6 +107,7 @@ public class Oberon extends AdvancedRobot
 		//TEMP
 
 	} //end when hit by bullit event/method
+
 
 	//when robot hits wall
 	public void onHitWall(HitWallEvent e)
