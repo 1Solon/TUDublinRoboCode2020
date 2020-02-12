@@ -23,10 +23,14 @@ public class Oberon extends AdvancedRobot
 	double move;
 	double x;
 	double y;
+	double h;
 	double Px;
 	double Py;
 	double centerX = getBattleFieldWidth() / 2;
 	double centerY = getBattleFieldHeight() / 2;
+	double BorderX = getBattleFieldWidth();
+	double BorderY = getBattleFieldHeight();
+	double Sentry = getSentryBorderSize();
 
 	// Declairs variables to keep track of enemy energy so that we can check if they have fired
 	double enemyE = 100;
@@ -41,16 +45,17 @@ public class Oberon extends AdvancedRobot
 	{
 		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
 
+		//gets coardinates and defines future coordinates
+		x = getX();
+		y = getY();
+		h = getHeading();
+
 			//main loop
 			while(true)
 			{
 
-				//gets coardinates and defines future coordinates
-				x = getX();
-				y = getY();
-
 				if (TurnCounter == 0){
-					GoToCentre(centerX,centerY);
+					//GoToCentre(centerX,centerY);
 				}//End GoToCentre
 
 				else{
@@ -127,35 +132,26 @@ public class Oberon extends AdvancedRobot
 
 	} //end on hit wall event/method
 
-		public void GoToCentre(double x, double y)
-		{
-			double a;
-	    setTurnRightRadians(Math.tan(
-	        a = Math.atan2(x -= (int) getX(), y -= (int) getY())
-	              - getHeadingRadians()));
-	    setAhead(Math.hypot(x, y) * Math.cos(a));
-		}//End GOTO
-
 
 		public void MoveRobot()
 		{
 
 			//generates and distance from centre
-			Double fromcentre = (Math.sqrt(Math.pow(2, (getX() - centerX)) + Math.pow(2, (getY() - centerY))));
-			String str = Double.toString(fromcentre);
+			//Double fromcentre = (Math.sqrt(Math.pow(2, (getX() - centerX)) + Math.pow(2, (getY() - centerY))));
+			//String str = Double.toString(fromcentre);
 			move = rand.nextInt(80)+2;
 
 
 			//Generates projected coordinates
-			Px = x+Math.sin(getHeading()) * move;
-			Py = y+Math.cos(getHeading()) * move;
+			Px = x+Math.sin(h) * move;
+			Py = y+Math.cos(h) * move;
 
 			//Generates distance from centre
 
 
 
 			//checks if movement is within bounds
-			if ((getSentryBorderSize() < Px && Px < getBattleFieldWidth() - getSentryBorderSize()) && (getSentryBorderSize() < Py && Py < getBattleFieldHeight() - getSentryBorderSize()))
+			if ((Sentry < Px && Px < BorderX - Sentry) && (Sentry < Py && Py < BorderY - Sentry))
 			{
 				setAhead(move);
 			} else {
