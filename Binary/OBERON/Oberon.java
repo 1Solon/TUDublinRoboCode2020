@@ -158,7 +158,7 @@ public class Oberon extends AdvancedRobot
 
 
 			//checks if movement is within bounds
-			if ( (Sentry < Px && Px < (BorderX - Sentry)) && (Sentry < Py && Py < (BorderY - Sentry)) )
+			if ( (Sentry > Px && Px < (BorderX - Sentry)) && (Sentry > Py && Py < (BorderY - Sentry)) )
 			{
 				setAhead(move);
 			} else {
