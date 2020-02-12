@@ -143,8 +143,8 @@ public class Oberon extends AdvancedRobot
 		{
 
 			//generates and distance from centre
-			//Double fromcentre = (Math.sqrt(Math.pow(2, (getX() - centerX)) + Math.pow(2, (getY() - centerY))));
-			//String str = Double.toString(fromcentre);
+			Double fromcentre = (Math.sqrt(Math.pow(2, (getX() - centerX)) + Math.pow(2, (getY() - centerY))));
+			int pass = fromcentre.intValue();
 			move = rand.nextInt(80)+2;
 
 
