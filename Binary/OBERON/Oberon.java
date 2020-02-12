@@ -8,8 +8,8 @@ import static robocode.util.Utils.normalRelativeAngleDegrees;
 
 
 /**
- * Oberon - a robot by (Alan Byju, Paul Geoghegan and Saul Burgess)
- */
+ * Oberon - a robot by (Alan Byju, Paul Geoghegan and Saul Burgess)
+ */
 
 
 public class Oberon extends AdvancedRobot
@@ -21,6 +21,7 @@ public class Oberon extends AdvancedRobot
 	byte scanDirection = 1;
 
 	// Oberon info
+	int TurnCounter = 0;
 	double move;
 	double x;
 	double y;
@@ -39,16 +40,12 @@ public class Oberon extends AdvancedRobot
 	{
 		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
 
-		//gets max height and with so that Oberon won't leave valid playspace and get shot at by century bot
-		double maxPlayHeight = getBattleFieldHeight();
-		double maxPlayWidth = getBattleFieldWidth();
-
-		//gets century area
-		double century = getSentryBorderSize();
-
 		//main loop
 		while(true)
 		{
+
+			//Begin by iterating TurnCounter
+			TurnCounter++;
 
 			//Stuff to make the radar do stuff and things
 			setAdjustRadarForGunTurn(true);
@@ -58,8 +55,13 @@ public class Oberon extends AdvancedRobot
 			x = getX();
 			y = getY();
 
+			if (TurnCounter == 0){
+				GoToCentre(getBattleFieldWidth()/2,getBattleFieldHeight()/2);
+			}//End GoToCentre
 
-			MoveRobot();
+			else{
+				MoveRobot();
+			}//End else
 
 			//makes sure everything excicutes
 			execute();
@@ -107,9 +109,21 @@ public class Oberon extends AdvancedRobot
 
 	} //end on hit wall event/method
 
-
-	public void MoveRobot ()
+	public void GoToCentre(double x, double y)
 	{
+		double a;
+    setTurnRightRadians(Math.tan(
+        a = Math.atan2(x -= (int) getX(), y -= (int) getY())
+              - getHeadingRadians()));
+    setAhead(Math.hypot(x, y) * Math.cos(a));
+	}//End GOTO
+
+
+	public void MoveRobot()
+	{
+
+		//gets century area
+		double century = getSentryBorderSize();
 
 		//generates move
 		move = rand.nextInt(80)+20;
@@ -120,19 +134,13 @@ public class Oberon extends AdvancedRobot
 
 
 		//checks if movement is within bounds
-		if(Py > (maxPlayHeight - (century*2)) || Px > (maxPlayWidth - (century*2)))
+		if ((getSentryBorderSize() < Px && Px < getBattleFieldWidth() - getSentryBorderSize()) && (getSentryBorderSize() < Py && Py < getBattleFieldHeight() - getSentryBorderSize()))
 		{
-			ahead(move);
-		} //end if
+			setAhead(move);
+		} else {
+			turnRight(45);
+		}//End Else
 
-		else if((Py - move) < ((century*2)) || (Px - move) < ((century*2)))
-		{
-			ahead(move);
-		}
-
-		//moves Oberon
-		turnRight(45);
-
-	}
+	}//End moverobot
 
 }//End Oberon
