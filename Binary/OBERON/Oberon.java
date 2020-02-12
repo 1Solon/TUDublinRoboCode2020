@@ -1,5 +1,3 @@
-//things to look at
-//setTurnGunRight(getHeading() - getGunHeading() + e.getBearing());
 
 package Oberon;
 import robocode.*;
@@ -8,17 +6,18 @@ import static robocode.util.Utils.normalRelativeAngleDegrees;
 
 
 /**
- * Oberon - a robot by (Alan Byju, Paul Geoghegan and Saul Burgess)
- */
+ * Oberon - a robot by (Alan Byju, Paul Geoghegan and Saul Burgess)
+ */
 
 
 public class Oberon extends AdvancedRobot
 {
 
-	//declairs rand for use in locate
-	Random rand = new Random();
-	double enemyV, enemyB;
-	byte scanDirection = 1;
+//declairs rand for use in locate
+Random rand = new Random();
+double enemyV, enemyB;
+byte scanDirection = 1;
+
 
 	// Oberon info
 	int TurnCounter = 0;
@@ -30,25 +29,26 @@ public class Oberon extends AdvancedRobot
 	double centerX = getBattleFieldWidth() / 2;
 	double centerY = getBattleFieldHeight() / 2;
 
-	// Declairs variables to keep track of enemy energy so that we can check if they have fired
-	double enemyE = 100;
-	double enemyCE = 0;
+// Declairs variables to keep track of enemy energy so that we can check if they have fired
+double enemyE = 100;
+double enemyCE = 0;
 
 	////enemy info
 	double enemyD;
 
-	//main
-	public void run()
-	{
-		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
+
+//main
+public void run()
+{
+// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
 
 		//main loop
 		while(true)
 		{
 
-			//Stuff to make the radar do stuff and things
-			setAdjustRadarForGunTurn(true);
-			setTurnRadarRight(36000);
+//generates move
+move = rand.nextInt(80)+20;
+
 
 			//gets coardinates and defines future coordinates
 			x = getX();
@@ -70,46 +70,73 @@ public class Oberon extends AdvancedRobot
 
 		}//End While
 
-	} //end main
 
 
-	//when a robot is scanned by the radar this method will run
-	public void onScannedRobot(ScannedRobotEvent e)
+//when a robot is scanned by the radar this method will run
+public void onScannedRobot(ScannedRobotEvent e)
+{
+
+/*
+	if(isSentryRobot == false)
+	{
+*/
+
+scanDirection *= -1; // changes value from 1 to -1
+setTurnRadarRight(360 * scanDirection);
+
+	//turns gun towards enemy
+	setTurnGunRight(getRadarHeading() - getGunHeading() + e.getBearing());
+
+	//attacks enemy
+	attack();
+
+/*
+	} //end sentry check
+	else
 	{
 
-	scanDirection *= -1; // changes value from 1 to -1
-	setTurnRadarRight(360 * scanDirection);
+	} //end else
+*/
 
-	//get enemy energy
-	enemyCE = getEnergy();
+//get enemy energy
+enemyCE = getEnergy();
 
-	if(enemyCE != enemyE)
+if(enemyCE != enemyE)
+{
+
+
+} // end scanned robot event/method
+
+	//shoots at the enemy
+	public void attack()
 	{
 
-	enemyE = enemyCE;
 
-	} //end if
+		//checks if the gun is ready to fire
+		if(getGunHeat() == 0)
+		{
 
-	//gets enemy info
-	//enemyD = e.getDistance;
+		fire(1);
 
-	} // end scanned robot event/method
+		} //end if
 
-	//when Oberon is hit by a bullit this method will run
-	public void onHitByBullet(HitByBulletEvent e)
-	{
+	} //end attack
 
-	//TEMP
+//when Oberon is hit by a bullit this method will run
+public void onHitByBullet(HitByBulletEvent e)
+{
 
-	} //end when hit by bullit event/method
+//TEMP
 
-	//when robot hits wall
-	public void onHitWall(HitWallEvent e)
-	{
+} //end when hit by bullit event/method
 
-		//TEMP
+//when robot hits wall
+public void onHitWall(HitWallEvent e)
+{
 
-	} //end on hit wall event/method
+//TEMP
+
+} //end on hit wall event/method
 
 	public void GoToCentre(double x, double y)
 	{
