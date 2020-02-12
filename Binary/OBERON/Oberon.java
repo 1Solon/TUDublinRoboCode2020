@@ -27,6 +27,8 @@ public class Oberon extends AdvancedRobot
 	double y;
 	double Px;
 	double Py;
+	double centerX = getBattleFieldWidth() / 2;
+	double centerY = getBattleFieldHeight() / 2;
 
 	// Declairs variables to keep track of enemy energy so that we can check if they have fired
 	double enemyE = 100;
@@ -44,9 +46,6 @@ public class Oberon extends AdvancedRobot
 		while(true)
 		{
 
-			//Begin by iterating TurnCounter
-			TurnCounter++;
-
 			//Stuff to make the radar do stuff and things
 			setAdjustRadarForGunTurn(true);
 			setTurnRadarRight(36000);
@@ -56,12 +55,15 @@ public class Oberon extends AdvancedRobot
 			y = getY();
 
 			if (TurnCounter == 0){
-				GoToCentre(getBattleFieldWidth()/2,getBattleFieldHeight()/2);
+				GoToCentre(centerX,centerY);
 			}//End GoToCentre
 
 			else{
 				MoveRobot();
 			}//End else
+
+			//Begin by iterating TurnCounter
+			TurnCounter++;
 
 			//makes sure everything excicutes
 			execute();
@@ -122,15 +124,18 @@ public class Oberon extends AdvancedRobot
 	public void MoveRobot()
 	{
 
-		//gets century area
-		double century = getSentryBorderSize();
+		//generates and distance from centre
+		Double fromcentre = (Math.sqrt(Math.pow(2, (getX() - centerX)) + Math.pow(2, (getY() - centerY))));
+		int randpass = fromcentre.intValue();
+		move = rand.nextInt(randpass)+2;
 
-		//generates move
-		move = rand.nextInt(80)+20;
 
 		//Generates projected coordinates
 		Px = x+Math.sin(getHeading()) * move;
 		Py = y+Math.cos(getHeading()) * move;
+
+		//Generates distance from centre
+
 
 
 		//checks if movement is within bounds
