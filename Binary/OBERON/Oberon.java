@@ -45,6 +45,10 @@ public class Oberon extends AdvancedRobot
 	{
 		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
 
+		setAdjustGunForRobotTurn(true);
+		setAdjustRadarForGunTurn(true);
+		setAdjustRadarForRobotTurn(true);
+
 		centerX = getBattleFieldWidth() / 2;
 		centerY = getBattleFieldHeight() / 2;
 		BorderX = getBattleFieldWidth();
@@ -145,19 +149,16 @@ public class Oberon extends AdvancedRobot
 			//generates and distance from centre
 			Double fromcentre = (Math.sqrt(Math.pow(2, (getX() - centerX)) + Math.pow(2, (getY() - centerY))));
 			int pass = fromcentre.intValue();
-			move = rand.nextInt(80)+2;
+			move = rand.nextInt(pass)+2;
 
 
 			//Generates projected coordinates
 			Px = x+Math.sin(h) * move;
 			Py = y+Math.cos(h) * move;
 
-			//Generates distance from centre
-
-
 
 			//checks if movement is within bounds
-			if ((Sentry < Px && Px < BorderX - Sentry) && (Sentry < Py && Py < BorderY - Sentry))
+			if ( (Sentry < Px && Px < (BorderX - Sentry)) && (Sentry < Py && Py < (BorderY - Sentry)) )
 			{
 				setAhead(move);
 			} else {
