@@ -18,70 +18,58 @@ Random rand = new Random();
 double enemyV, enemyB;
 byte scanDirection = 1;
 
-// Oberon info
-double move;
-double x;
-double y;
+
+	// Oberon info
+	int TurnCounter = 0;
+	double move;
+	double x;
+	double y;
+	double Px;
+	double Py;
+	double centerX = getBattleFieldWidth() / 2;
+	double centerY = getBattleFieldHeight() / 2;
 
 // Declairs variables to keep track of enemy energy so that we can check if they have fired
 double enemyE = 100;
 double enemyCE = 0;
 
-////enemy info
-double enemyD;
+	////enemy info
+	double enemyD;
+
 
 //main
 public void run()
 {
 // setColors(Color.red,Color.blue,Color.green); // body,gun,radar
 
-//gets max height and with so that Oberon won't leave valid playspace and get shot at by century bot
-double maxPlayHeight = getBattleFieldHeight();
-double maxPlayWidth = getBattleFieldWidth();
-
-//gets century area
-double century = getSentryBorderSize();
-
-//main loop
-while(true)
-{
-
-//Stuff to make the radar do stuff and things
-setAdjustRadarForGunTurn(true);
-setTurnRadarRight(36000);
+		//main loop
+		while(true)
+		{
 
 //generates move
 move = rand.nextInt(80)+20;
 
-//gets coardinates
-x = getX();
-y = getY();
 
+			//gets coardinates and defines future coordinates
+			x = getX();
+			y = getY();
 
-//checks if movement is within bounds
-if((y + move) > (maxPlayHeight - (century*2)) || (x + move) > (maxPlayWidth - (century*2)))
-{
+			if (TurnCounter == 0){
+				GoToCentre(centerX,centerY);
+			}//End GoToCentre
 
-//turns right 60 degrees
-turnRight(60);
+			else{
+				MoveRobot();
+			}//End else
 
-} //end if
-else if((y - move) < ((century*2)) || (x - move) < ((century*2)))
-{
+			//Begin by iterating TurnCounter
+			TurnCounter++;
 
-//turns right 60 degrees
-turnRight(60);
+			//makes sure everything excicutes
+			execute();
 
-} // end if
+		}//End While
 
-//moves Oberon
-ahead(move);
-
-//makes sure everything excicutes
-execute();
-} //end while
-
-} //end main
 
 
 //when a robot is scanned by the radar this method will run
@@ -107,8 +95,6 @@ setTurnRadarRight(360 * scanDirection);
 	else
 	{
 
-		setTurnRadarRight(360 * scanDirection);
-
 	} //end else
 */
 
@@ -118,18 +104,13 @@ enemyCE = getEnergy();
 if(enemyCE != enemyE)
 {
 
-enemyE = enemyCE;
-
-} //end if
-
-//gets enemy info
-//enemyD = e.getDistance;
 
 } // end scanned robot event/method
 
 	//shoots at the enemy
 	public void attack()
 	{
+
 
 		//checks if the gun is ready to fire
 		if(getGunHeat() == 0)
@@ -157,4 +138,41 @@ public void onHitWall(HitWallEvent e)
 
 } //end on hit wall event/method
 
-} //end oberon
+	public void GoToCentre(double x, double y)
+	{
+		double a;
+    setTurnRightRadians(Math.tan(
+        a = Math.atan2(x -= (int) getX(), y -= (int) getY())
+              - getHeadingRadians()));
+    setAhead(Math.hypot(x, y) * Math.cos(a));
+	}//End GOTO
+
+
+	public void MoveRobot()
+	{
+
+		//generates and distance from centre
+		Double fromcentre = (Math.sqrt(Math.pow(2, (getX() - centerX)) + Math.pow(2, (getY() - centerY))));
+		int randpass = fromcentre.intValue();
+		move = rand.nextInt(randpass)+2;
+
+
+		//Generates projected coordinates
+		Px = x+Math.sin(getHeading()) * move;
+		Py = y+Math.cos(getHeading()) * move;
+
+		//Generates distance from centre
+
+
+
+		//checks if movement is within bounds
+		if ((getSentryBorderSize() < Px && Px < getBattleFieldWidth() - getSentryBorderSize()) && (getSentryBorderSize() < Py && Py < getBattleFieldHeight() - getSentryBorderSize()))
+		{
+			setAhead(move);
+		} else {
+			turnRight(45);
+		}//End Else
+
+	}//End moverobot
+
+}//End Oberon
