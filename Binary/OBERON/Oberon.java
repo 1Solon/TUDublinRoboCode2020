@@ -55,27 +55,19 @@ public class Oberon extends AdvancedRobot
 		BorderY = getBattleFieldHeight();
 		Sentry = getSentryBorderSize();
 
-		//gets coardinates and defines future coordinates
-		x = getX();
-		y = getY();
-		h = getHeadingRadians();
-		Px = getX();
-		Py = getY();
 
 			//main loop
 			while(true)
 			{
 
-				if (TurnCounter == 0){
-					//GoToCentre(centerX,centerY);
-				}//End GoToCentre
+				//gets coardinates and defines future coordinates
+				x = getX();
+				y = getY();
+				h = getHeadingRadians();
 
-				else{
-					MoveRobot();
-				}//End else
+				MoveRobot();
 
-				//Begin by iterating TurnCounter
-				TurnCounter++;
+
 
 				//makes sure everything excicutes
 				execute();
@@ -155,12 +147,12 @@ public class Oberon extends AdvancedRobot
 
 
 			//Generates projected coordinates
-			Px += Math.sin(h) + move;
-			Py += y+Math.cos(h) + move;
+			Px = x+(Math.cos(h) + move);
+			Py = y+(Math.sin(h) + move);
 
 
 			//checks if movement is within bounds
-			if ( (Sentry > Px && Px < (BorderX - Sentry)) && (Sentry > Py && Py < (BorderY - Sentry)) )
+			if ( (Sentry < Px && Px < (BorderX - Sentry)) && (Sentry < Py && Py < (BorderY - Sentry)) )
 			{
 				setAhead(move);
 			} else {
