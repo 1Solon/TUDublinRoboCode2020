@@ -97,7 +97,7 @@ scanDirection *= -1; // changes value from 1 to -1
 setTurnRadarRight(360 * scanDirection);
 
 	//turns gun towards enemy
-	setTurnGunRight(getHeading() - getGunHeading() + e.getBearing());
+	setTurnGunRight(getRadarHeading() - getGunHeading() + e.getBearing());
 
 	//attacks enemy
 	attack();
