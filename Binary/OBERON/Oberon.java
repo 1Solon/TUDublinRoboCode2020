@@ -26,7 +26,7 @@ public class Oberon extends AdvancedRobot
 	double h;
 	double Px;
 	double Py;
-	double centerX; / 2;
+	double centerX;
 	double centerY;
 	double BorderX;
 	double BorderY;
