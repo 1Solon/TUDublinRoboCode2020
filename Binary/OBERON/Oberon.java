@@ -1,4 +1,3 @@
-
 package Oberon;
 import robocode.*;
 import java.util.Random;
@@ -13,10 +12,10 @@ import static robocode.util.Utils.normalRelativeAngleDegrees;
 public class Oberon extends AdvancedRobot
 {
 
-//declairs rand for use in locate
-Random rand = new Random();
-double enemyV, enemyB;
-byte scanDirection = 1;
+	//declairs rand for use in locate
+	Random rand = new Random();
+	double enemyV, enemyB;
+	byte scanDirection = 1;
 
 
 	// Oberon info
@@ -29,150 +28,140 @@ byte scanDirection = 1;
 	double centerX = getBattleFieldWidth() / 2;
 	double centerY = getBattleFieldHeight() / 2;
 
-// Declairs variables to keep track of enemy energy so that we can check if they have fired
-double enemyE = 100;
-double enemyCE = 0;
+	// Declairs variables to keep track of enemy energy so that we can check if they have fired
+	double enemyE = 100;
+	double enemyCE = 0;
 
 	////enemy info
 	double enemyD;
 
 
-//main
-public void run()
-{
-// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
+	//main
+	public void run()
+	{
+		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
 
-		//main loop
-		while(true)
+			//main loop
+			while(true)
+			{
+
+				//gets coardinates and defines future coordinates
+				x = getX();
+				y = getY();
+
+				if (TurnCounter == 0){
+					GoToCentre(centerX,centerY);
+				}//End GoToCentre
+
+				else{
+					MoveRobot();
+				}//End else
+
+				//Begin by iterating TurnCounter
+				TurnCounter++;
+
+				//makes sure everything excicutes
+				execute();
+
+			}//End While
+	}
+
+
+
+	//when a robot is scanned by the radar this method will run
+	public void onScannedRobot(ScannedRobotEvent e)
+	{
+
+		/*
+		if(isSentryRobot == false)
+		{
+		*/
+
+		scanDirection *= -1; // changes value from 1 to -1
+		setTurnRadarRight(360 * scanDirection);
+
+		//turns gun towards enemy
+		setTurnGunRight(getRadarHeading() - getGunHeading() + e.getBearing());
+
+		//attacks enemy
+		attack();
+
+		/*
+		} //end sentry check
+		else
 		{
 
-//generates move
-move = rand.nextInt(80)+20;
+		} //end else
+	*/
 
+	} // end scanned robot event/method
 
-			//gets coardinates and defines future coordinates
-			x = getX();
-			y = getY();
-
-			if (TurnCounter == 0){
-				GoToCentre(centerX,centerY);
-			}//End GoToCentre
-
-			else{
-				MoveRobot();
-			}//End else
-
-			//Begin by iterating TurnCounter
-			TurnCounter++;
-
-			//makes sure everything excicutes
-			execute();
-
-		}//End While
-
-
-
-//when a robot is scanned by the radar this method will run
-public void onScannedRobot(ScannedRobotEvent e)
-{
-
-/*
-	if(isSentryRobot == false)
-	{
-*/
-
-scanDirection *= -1; // changes value from 1 to -1
-setTurnRadarRight(360 * scanDirection);
-
-	//turns gun towards enemy
-	setTurnGunRight(getRadarHeading() - getGunHeading() + e.getBearing());
-
-	//attacks enemy
-	attack();
-
-/*
-	} //end sentry check
-	else
-	{
-
-	} //end else
-*/
-
-//get enemy energy
-enemyCE = getEnergy();
-
-if(enemyCE != enemyE)
-{
-
-
-} // end scanned robot event/method
-
-	//shoots at the enemy
-	public void attack()
-	{
-
-
-		//checks if the gun is ready to fire
-		if(getGunHeat() == 0)
+		//shoots at the enemy
+		public void attack()
 		{
 
-		fire(1);
 
-		} //end if
+			//checks if the gun is ready to fire
+			if(getGunHeat() == 0)
+			{
 
-	} //end attack
+			fire(1);
 
-//when Oberon is hit by a bullit this method will run
-public void onHitByBullet(HitByBulletEvent e)
-{
+			} //end if
 
-//TEMP
+		} //end attack
 
-} //end when hit by bullit event/method
-
-//when robot hits wall
-public void onHitWall(HitWallEvent e)
-{
-
-//TEMP
-
-} //end on hit wall event/method
-
-	public void GoToCentre(double x, double y)
-	{
-		double a;
-    setTurnRightRadians(Math.tan(
-        a = Math.atan2(x -= (int) getX(), y -= (int) getY())
-              - getHeadingRadians()));
-    setAhead(Math.hypot(x, y) * Math.cos(a));
-	}//End GOTO
-
-
-	public void MoveRobot()
+	//when Oberon is hit by a bullit this method will run
+	public void onHitByBullet(HitByBulletEvent e)
 	{
 
-		//generates and distance from centre
-		Double fromcentre = (Math.sqrt(Math.pow(2, (getX() - centerX)) + Math.pow(2, (getY() - centerY))));
-		int randpass = fromcentre.intValue();
-		move = rand.nextInt(randpass)+2;
+	//TEMP
 
+	} //end when hit by bullit event/method
 
-		//Generates projected coordinates
-		Px = x+Math.sin(getHeading()) * move;
-		Py = y+Math.cos(getHeading()) * move;
+	//when robot hits wall
+	public void onHitWall(HitWallEvent e)
+	{
 
-		//Generates distance from centre
+	//TEMP
 
+	} //end on hit wall event/method
 
-
-		//checks if movement is within bounds
-		if ((getSentryBorderSize() < Px && Px < getBattleFieldWidth() - getSentryBorderSize()) && (getSentryBorderSize() < Py && Py < getBattleFieldHeight() - getSentryBorderSize()))
+		public void GoToCentre(double x, double y)
 		{
-			setAhead(move);
-		} else {
-			turnRight(45);
-		}//End Else
+			double a;
+	    setTurnRightRadians(Math.tan(
+	        a = Math.atan2(x -= (int) getX(), y -= (int) getY())
+	              - getHeadingRadians()));
+	    setAhead(Math.hypot(x, y) * Math.cos(a));
+		}//End GOTO
 
-	}//End moverobot
 
-}//End Oberon
+		public void MoveRobot()
+		{
+
+			//generates and distance from centre
+			Double fromcentre = (Math.sqrt(Math.pow(2, (getX() - centerX)) + Math.pow(2, (getY() - centerY))));
+			int randpass = fromcentre.intValue();
+			move = rand.nextInt(randpass)+2;
+
+
+			//Generates projected coordinates
+			Px = x+Math.sin(getHeading()) * move;
+			Py = y+Math.cos(getHeading()) * move;
+
+			//Generates distance from centre
+
+
+
+			//checks if movement is within bounds
+			if ((getSentryBorderSize() < Px && Px < getBattleFieldWidth() - getSentryBorderSize()) && (getSentryBorderSize() < Py && Py < getBattleFieldHeight() - getSentryBorderSize()))
+			{
+				setAhead(move);
+			} else {
+				turnRight(45);
+			}//End Else
+
+		}//End moverobot
+
+	}//End Oberon
