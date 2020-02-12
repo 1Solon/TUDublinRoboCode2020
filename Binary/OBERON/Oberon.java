@@ -63,7 +63,7 @@ public class Oberon extends AdvancedRobot
 				//gets coardinates and defines future coordinates
 				x = getX();
 				y = getY();
-				h = getHeadingRadians();
+				h = getHeading();
 
 				MoveRobot();
 
@@ -141,9 +141,9 @@ public class Oberon extends AdvancedRobot
 		{
 
 			//generates and distance from centre
-			Double fromcentre = (Math.sqrt(Math.pow(2, (getX() - centerX)) + Math.pow(2, (getY() - centerY))));
-			int pass = fromcentre.intValue();
-			move = rand.nextInt(pass)+2;
+			//double fromcentre = (Math.sqrt(Math.pow(2, (getX() - centerX)) + Math.pow(2, (getY() - centerY))));
+			//int pass = (int)fromcentre;
+			move = rand.nextInt(400)+100;
 
 
 			//Generates projected coordinates
