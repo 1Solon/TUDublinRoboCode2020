@@ -26,11 +26,11 @@ public class Oberon extends AdvancedRobot
 	double h;
 	double Px;
 	double Py;
-	double centerX = getBattleFieldWidth() / 2;
-	double centerY = getBattleFieldHeight() / 2;
-	double BorderX = getBattleFieldWidth();
-	double BorderY = getBattleFieldHeight();
-	double Sentry = getSentryBorderSize();
+	double centerX; / 2;
+	double centerY;
+	double BorderX;
+	double BorderY;
+	double Sentry;
 
 	// Declairs variables to keep track of enemy energy so that we can check if they have fired
 	double enemyE = 100;
@@ -44,6 +44,12 @@ public class Oberon extends AdvancedRobot
 	public void run()
 	{
 		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
+
+		centerX = getBattleFieldWidth() / 2;
+		centerY = getBattleFieldHeight() / 2;
+		BorderX = getBattleFieldWidth();
+		BorderY = getBattleFieldHeight();
+		Sentry = getSentryBorderSize();
 
 		//gets coardinates and defines future coordinates
 		x = getX();
