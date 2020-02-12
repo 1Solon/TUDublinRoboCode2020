@@ -1,5 +1,3 @@
-//things to look at
-//setTurnGunRight(getHeading() - getGunHeading() + e.getBearing());
 
 package Oberon;
 import robocode.*;
@@ -66,7 +64,6 @@ if((y + move) > (maxPlayHeight - (century*2)) || (x + move) > (maxPlayWidth - (c
 
 //turns right 60 degrees
 turnRight(60);
-				move = move * - 0.5;
 
 } //end if
 else if((y - move) < ((century*2)) || (x - move) < ((century*2)))
@@ -74,7 +71,6 @@ else if((y - move) < ((century*2)) || (x - move) < ((century*2)))
 
 //turns right 60 degrees
 turnRight(60);
-				move = move * -0.5;
 
 } // end if
 
@@ -92,8 +88,29 @@ execute();
 public void onScannedRobot(ScannedRobotEvent e)
 {
 
+/*
+	if(isSentryRobot == false)
+	{
+*/
+
 scanDirection *= -1; // changes value from 1 to -1
 setTurnRadarRight(360 * scanDirection);
+
+	//turns gun towards enemy
+	setTurnGunRight(getRadarHeading() - getGunHeading() + e.getBearing());
+
+	//attacks enemy
+	attack();
+
+/*
+	} //end sentry check
+	else
+	{
+
+		setTurnRadarRight(360 * scanDirection);
+
+	} //end else
+*/
 
 //get enemy energy
 enemyCE = getEnergy();
@@ -109,6 +126,20 @@ enemyE = enemyCE;
 //enemyD = e.getDistance;
 
 } // end scanned robot event/method
+
+	//shoots at the enemy
+	public void attack()
+	{
+
+		//checks if the gun is ready to fire
+		if(getGunHeat() == 0)
+		{
+
+		fire(1);
+
+		} //end if
+
+	} //end attack
 
 //when Oberon is hit by a bullit this method will run
 public void onHitByBullet(HitByBulletEvent e)
