@@ -58,7 +58,9 @@ public class Oberon extends AdvancedRobot
 		//gets coardinates and defines future coordinates
 		x = getX();
 		y = getY();
-		h = getHeading();
+		h = getHeadingRadians();
+		Px = getX();
+		Py = getY();
 
 			//main loop
 			while(true)
@@ -153,8 +155,8 @@ public class Oberon extends AdvancedRobot
 
 
 			//Generates projected coordinates
-			Px = x+Math.sin(h) * move;
-			Py = y+Math.cos(h) * move;
+			Px += Math.sin(h) + move;
+			Py += y+Math.cos(h) + move;
 
 
 			//checks if movement is within bounds
