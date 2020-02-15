@@ -30,8 +30,8 @@ public class Oberon extends AdvancedRobot
 		for(int i = 0 ; i < 54 ; i++)
 		{
 
-			goToX[i] = rangeX * (i+1);
-			goToY[i] = rangeY * (i+1);
+			goToX[i] = rangeX / 2 + (rangeX * i);
+			goToY[i] = rangeY / 2 (rangeY * i);
 
 		} //end for
 
