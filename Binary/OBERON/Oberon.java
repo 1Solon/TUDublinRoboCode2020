@@ -1,6 +1,7 @@
 package Oberon;
 import robocode.*;
-import java.util.Random;
+import robocode.util.Utils;
+import java.util.*;
 import static robocode.util.Utils.normalRelativeAngleDegrees;
 
 
@@ -63,9 +64,6 @@ public class Oberon extends AdvancedRobot
 			x = getX();
 			y = getY();
 			h = getHeading();
-
-			MoveRobot();
-
 
 
 			//makes sure everything excicutes
@@ -143,7 +141,7 @@ public class Oberon extends AdvancedRobot
 		double goAngle = Utils.normalRelativeAngleDegrees(Math.atan2(x, y) - getHeadingRadians());
 
 		setTurnRightRadians(Math.atan(Math.tan(goAngle)));
-		setahead(Math.cos(goAngle) * Math.hypot(x, y));
+		setAhead(Math.cos(goAngle) * Math.hypot(x, y));
 	}//End goTo
 
 	//Moves based on testing it's position in the future: currently deppreciated due to currently unresolved issues
