@@ -13,9 +13,9 @@ import static robocode.util.Utils.normalRelativeAngleDegrees;
 public class Oberon extends AdvancedRobot
 {
 	Random rand = new Random();
-	double a, b, xRef, yRef, h, rangeX, rangeY;
+	double x, y, h, rangeX, rangeY;
 	byte scanDirection = -1;
-
+	int a, b;
 	double[] goToX = new double[5];
 	double[] goToY = new double[5];
 
@@ -56,8 +56,8 @@ public class Oberon extends AdvancedRobot
 		a = rand.nextInt(5);
 		b = rand.nextInt(5);
 
-		xRef = a;
-		yRef = b;
+		x = goToX[a];
+		y = goToY[b];
 
 		//passes x and y coardinates for Oberon to go to
 		goTo();
@@ -125,8 +125,6 @@ public class Oberon extends AdvancedRobot
 
 	//A function that controls the goTo strategy of Oberon using passed cordinates from the movement controller in main
 	public void goTo (){
-		double x = goToX[3];
-		double y = goToY[3];
 
 		double goAngle = Utils.normalRelativeAngleDegrees(Math.atan2(x, y) - getHeadingRadians());
 
