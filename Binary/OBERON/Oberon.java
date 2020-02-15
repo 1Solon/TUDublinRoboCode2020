@@ -56,23 +56,23 @@ public class Oberon extends AdvancedRobot
 		Sentry = getSentryBorderSize();
 
 
-			//main loop
-			while(true)
-			{
+		//main loop
+		while(true)
+		{
 
-				//gets coardinates and defines future coordinates
-				x = getX();
-				y = getY();
-				h = getHeading();
+			//gets coardinates and defines future coordinates
+			x = getX();
+			y = getY();
+			h = getHeading();
 
-				MoveRobot();
+			MoveRobot();
 
 
 
-				//makes sure everything excicutes
-				execute();
+			//makes sure everything excicutes
+			execute();
 
-			}//End While
+		}//End While
 	}
 
 
@@ -101,30 +101,30 @@ public class Oberon extends AdvancedRobot
 		{
 
 		} //end else
-	*/
+		*/
 
 	} // end scanned robot event/method
 
-		//shoots at the enemy
-		public void attack()
+	//shoots at the enemy
+	public void attack()
+	{
+
+
+		//checks if the gun is ready to fire
+		if(getGunHeat() == 0)
 		{
-
-
-			//checks if the gun is ready to fire
-			if(getGunHeat() == 0)
-			{
 
 			fire(1);
 
-			} //end if
+		} //end if
 
-		} //end attack
+	} //end attack
 
 	//when Oberon is hit by a bullit this method will run
 	public void onHitByBullet(HitByBulletEvent e)
 	{
 
-	//TEMP
+		//TEMP
 
 	} //end when hit by bullit event/method
 
@@ -132,33 +132,33 @@ public class Oberon extends AdvancedRobot
 	public void onHitWall(HitWallEvent e)
 	{
 
-	//TEMP
+		//TEMP
 
 	} //end on hit wall event/method
 
 
-		public void MoveRobot()
+	public void MoveRobot()
+	{
+
+		//generates and distance from centre
+		//double fromcentre = (Math.sqrt(Math.pow(2, (getX() - centerX)) + Math.pow(2, (getY() - centerY))));
+		//int pass = (int)fromcentre;
+		move = rand.nextInt(400)+100;
+
+
+		//Generates projected coordinates
+		Px = x+(Math.cos(h) + move);
+		Py = y+(Math.sin(h) + move);
+
+
+		//checks if movement is within bounds
+		if ( (Sentry < Px && Px < (BorderX - Sentry)) && (Sentry < Py && Py < (BorderY - Sentry)) )
 		{
-
-			//generates and distance from centre
-			//double fromcentre = (Math.sqrt(Math.pow(2, (getX() - centerX)) + Math.pow(2, (getY() - centerY))));
-			//int pass = (int)fromcentre;
-			move = rand.nextInt(400)+100;
-
-
-			//Generates projected coordinates
-			Px = x+(Math.cos(h) + move);
-			Py = y+(Math.sin(h) + move);
-
-
-			//checks if movement is within bounds
-			if ( (Sentry < Px && Px < (BorderX - Sentry)) && (Sentry < Py && Py < (BorderY - Sentry)) )
-			{
-				setAhead(move);
+			setAhead(move);
 			} else {
-				turnRight(45);
-			}//End Else
+			turnRight(45);
+		}//End Else
 
-		}//End moverobot
+	}//End moverobot
 
 }//End Oberon
