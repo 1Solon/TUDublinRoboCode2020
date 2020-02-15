@@ -12,67 +12,28 @@ import static robocode.util.Utils.normalRelativeAngleDegrees;
 
 public class Oberon extends AdvancedRobot
 {
-
-	//declairs rand for use in locate
-	Random rand = new Random();
-	double enemyV, enemyB;
-	byte scanDirection = 1;
-
-	// Oberon info
-	int TurnCounter = 0;
-	double move;
-	double x;
-	double y;
-	double h;
-	double Px;
-	double Py;
-	double centerX;
-	double centerY;
-	double BorderX;
-	double BorderY;
-	double Sentry;
-
-	// Declairs variables to keep track of enemy energy so that we can check if they have fired
-	double enemyE = 100;
-	double enemyCE = 0;
-
-	////enemy info
-	double enemyD;
+	double x, y, h;
+	byte scanDirection = -1;
 
 
 	//main
-	public void run()
-	{
+	public void run(){
 		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
 
-		setAdjustGunForRobotTurn(true);
-		setAdjustRadarForGunTurn(true);
-		setAdjustRadarForRobotTurn(true);
-
-		centerX = getBattleFieldWidth() / 2;
-		centerY = getBattleFieldHeight() / 2;
-		BorderX = getBattleFieldWidth();
-		BorderY = getBattleFieldHeight();
-		Sentry = getSentryBorderSize();
-
-
 		//main loop
-		while(true)
-		{
-
-			//gets coardinates and defines future coordinates
-			x = getX();
-			y = getY();
-			h = getHeading();
-
+		while(true){
 
 			//makes sure everything excicutes
 			execute();
 
 		}//End While
-	}
+	}//End Run
 
 
+	//This function is the key component of Oberon, the basis of it's decision-tree. This function decides the best strategy for each scenario and executes them
+	void movementStrategyController(){
+
+	}//End movementStrategyController
 
 	//when a robot is scanned by the radar this method will run
 	public void onScannedRobot(ScannedRobotEvent e)
@@ -143,30 +104,5 @@ public class Oberon extends AdvancedRobot
 		setTurnRightRadians(Math.atan(Math.tan(goAngle)));
 		setAhead(Math.cos(goAngle) * Math.hypot(x, y));
 	}//End goTo
-
-	//Moves based on testing it's position in the future: currently deppreciated due to currently unresolved issues
-	public void MoveRobot()
-	{
-
-		//generates and distance from centre
-		double fromcentre = (Math.sqrt(Math.pow(2, (getX() - centerX)) + Math.pow(2, (getY() - centerY))));
-		int pass = (int)fromcentre;
-		move = rand.nextInt(400)+100;
-
-
-		//Generates projected coordinates
-		Px = x+(Math.cos(h) + move);
-		Py = y+(Math.sin(h) + move);
-
-
-		//checks if movement is within bounds
-		if ( (Sentry < Px && Px < (BorderX - Sentry)) && (Sentry < Py && Py < (BorderY - Sentry)) )
-		{
-			setAhead(move);
-			} else {
-			turnRight(45);
-		}//End Else
-
-	}//End moverobot
 
 }//End Oberon
