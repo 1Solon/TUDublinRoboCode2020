@@ -29,7 +29,7 @@ public class Oberon extends AdvancedRobot
 		rangeX = rangeX / 5;
 		rangeY = rangeY / 5;
 
-		for(int i = 0 ; i < 54 ; i++)
+		for(int i = 0 ; i < 5 ; i++)
 		{
 
 			goToX[i] = rangeX / 2 + (rangeX * i) + getSentryBorderSize();
@@ -125,8 +125,8 @@ public class Oberon extends AdvancedRobot
 
 	//A function that controls the goTo strategy of Oberon using passed cordinates from the movement controller in main
 	public void goTo (){
-		double x = goToX[xRef];
-		double y = goToY[yRef];
+		double x = goToX[3];
+		double y = goToY[3];
 
 		double goAngle = Utils.normalRelativeAngleDegrees(Math.atan2(x, y) - getHeadingRadians());
 
