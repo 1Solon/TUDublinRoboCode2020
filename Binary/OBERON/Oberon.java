@@ -17,7 +17,6 @@ public class Oberon extends AdvancedRobot
 	double enemyV, enemyB;
 	byte scanDirection = 1;
 
-
 	// Oberon info
 	int TurnCounter = 0;
 	double move;
@@ -136,13 +135,24 @@ public class Oberon extends AdvancedRobot
 
 	} //end on hit wall event/method
 
+	//A function that controls the goTo strategy of Oberon using passed cordinates from the movement controller in main
+	public void goTo (double x, double y){
+		x = x - getX();
+		y = y - getY();
 
+		double goAngle = Utils.normalRelativeAngleDegrees(Math.atan2(x, y) - getHeadingRadians());
+
+		setTurnRightRadians(Math.atan(Math.tan(goAngle)));
+		setahead(Math.cos(goAngle) * Math.hypot(x, y));
+	}//End goTo
+
+	//Moves based on testing it's position in the future: currently deppreciated due to currently unresolved issues
 	public void MoveRobot()
 	{
 
 		//generates and distance from centre
-		//double fromcentre = (Math.sqrt(Math.pow(2, (getX() - centerX)) + Math.pow(2, (getY() - centerY))));
-		//int pass = (int)fromcentre;
+		double fromcentre = (Math.sqrt(Math.pow(2, (getX() - centerX)) + Math.pow(2, (getY() - centerY))));
+		int pass = (int)fromcentre;
 		move = rand.nextInt(400)+100;
 
 
