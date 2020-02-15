@@ -30,13 +30,15 @@ public class Oberon extends AdvancedRobot
 		for(int i = 0 ; i < 54 ; i++)
 		{
 
-			goToX[i] = rangeX / 2 + (rangeX * i);
-			goToY[i] = rangeY / 2 (rangeY * i);
+			goToX[i] = rangeX / 2 + (rangeX * i) + getSentryBoaderSize();
+			goToY[i] = rangeY / 2 (rangeY * i) + getSentryBoaderSize();
 
 		} //end for
 
 		//main loop
 		while(true){
+
+			movementStrategyController();
 
 			//makes sure everything excicutes
 			execute();
@@ -47,6 +49,13 @@ public class Oberon extends AdvancedRobot
 
 	//This function is the key component of Oberon, the basis of it's decision-tree. This function decides the best strategy for each scenario and executes them
 	void movementStrategyController(){
+
+		//generates random numbers to choose what point Oberon will go to
+		x = rand.nextInt(5);
+		y = rand.nextInt(5);
+
+		//passes x and y coardinates for Oberon to go to
+		goTo(goToX[x], goToY[y]);
 
 	}//End movementStrategyController
 
