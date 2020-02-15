@@ -12,13 +12,28 @@ import static robocode.util.Utils.normalRelativeAngleDegrees;
 
 public class Oberon extends AdvancedRobot
 {
-	double x, y, h;
+	double x, y, h, rangeX, rangeY;
 	byte scanDirection = -1;
 
+	double goToX[5], goToY[5];
 
 	//main
 	public void run(){
 		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
+
+		rangeX = getBattlefieldWidth() - (getSentryBoaderSize() * 2);
+		rangeY = getBattlefieldHeight() - (getSentryBoaderSize() * 2);
+
+		rangeX = rangeX / 5;
+		rangeY = rangeY / 5;
+
+		for(int i = 0 ; i < 54 ; i++)
+		{
+
+			goToX[i] = rangeX * (i+1);
+			goToY[i] = rangeY * (i+1);
+
+		} //end for
 
 		//main loop
 		while(true){
