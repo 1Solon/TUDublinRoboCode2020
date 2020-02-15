@@ -12,17 +12,19 @@ import static robocode.util.Utils.normalRelativeAngleDegrees;
 
 public class Oberon extends AdvancedRobot
 {
-	double x, y, h, rangeX, rangeY;
+	Random rand = new Random();
+	double a, b, xRef, yRef, h, rangeX, rangeY;
 	byte scanDirection = -1;
 
-	double goToX[5], goToY[5];
+	double[] goToX = new double[5];
+	double[] goToY = new double[5];
 
 	//main
 	public void run(){
 		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
 
-		rangeX = getBattlefieldWidth() - (getSentryBoaderSize() * 2);
-		rangeY = getBattlefieldHeight() - (getSentryBoaderSize() * 2);
+		rangeX = getBattleFieldWidth() - (getSentryBorderSize() * 2);
+		rangeY = getBattleFieldHeight() - (getSentryBorderSize() * 2);
 
 		rangeX = rangeX / 5;
 		rangeY = rangeY / 5;
@@ -30,8 +32,8 @@ public class Oberon extends AdvancedRobot
 		for(int i = 0 ; i < 54 ; i++)
 		{
 
-			goToX[i] = rangeX / 2 + (rangeX * i) + getSentryBoaderSize();
-			goToY[i] = rangeY / 2 (rangeY * i) + getSentryBoaderSize();
+			goToX[i] = rangeX / 2 + (rangeX * i) + getSentryBorderSize();
+			goToY[i] = rangeY / 2 + (rangeY * i) + getSentryBorderSize();
 
 		} //end for
 
@@ -51,11 +53,14 @@ public class Oberon extends AdvancedRobot
 	void movementStrategyController(){
 
 		//generates random numbers to choose what point Oberon will go to
-		x = rand.nextInt(5);
-		y = rand.nextInt(5);
+		a = rand.nextInt(5);
+		b = rand.nextInt(5);
+
+		xRef = a;
+		yRef = b;
 
 		//passes x and y coardinates for Oberon to go to
-		goTo(goToX[x], goToY[y]);
+		goTo();
 
 	}//End movementStrategyController
 
@@ -119,9 +124,9 @@ public class Oberon extends AdvancedRobot
 	} //end on hit wall event/method
 
 	//A function that controls the goTo strategy of Oberon using passed cordinates from the movement controller in main
-	public void goTo (double x, double y){
-		x = x - getX();
-		y = y - getY();
+	public void goTo (){
+		double x = goToX[xRef];
+		double y = goToY[yRef];
 
 		double goAngle = Utils.normalRelativeAngleDegrees(Math.atan2(x, y) - getHeadingRadians());
 
