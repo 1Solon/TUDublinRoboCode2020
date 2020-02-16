@@ -40,7 +40,12 @@ public class Oberon extends AdvancedRobot
 		//main loop
 		while(true){
 
-			movementStrategyController();
+			if(getDistanceRemaining() == < 1)
+			{
+
+				movementStrategyController();
+
+			} //end if
 
 			//makes sure everything excicutes
 			execute();
