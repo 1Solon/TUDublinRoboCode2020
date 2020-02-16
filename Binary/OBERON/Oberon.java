@@ -16,8 +16,8 @@ public class Oberon extends AdvancedRobot
 	double x, y, h, rangeX, rangeY;
 	byte scanDirection = -1;
 	int a, b;
-	double[] goToX = new double[5];
-	double[] goToY = new double[5];
+	double[] goToX = new double[3];
+	double[] goToY = new double[3];
 
 	//main
 	public void run(){
@@ -26,10 +26,10 @@ public class Oberon extends AdvancedRobot
 		rangeX = getBattleFieldWidth() - (getSentryBorderSize() * 2);
 		rangeY = getBattleFieldHeight() - (getSentryBorderSize() * 2);
 
-		rangeX = rangeX / 5;
-		rangeY = rangeY / 5;
+		rangeX = rangeX / 3;
+		rangeY = rangeY / 3;
 
-		for(int i = 0 ; i < 5 ; i++)
+		for(int i = 0 ; i < 3 ; i++)
 		{
 
 			goToX[i] = rangeX / 2 + (rangeX * i) + getSentryBorderSize();
@@ -53,8 +53,8 @@ public class Oberon extends AdvancedRobot
 	void movementStrategyController(){
 
 		//generates random numbers to choose what point Oberon will go to
-		a = rand.nextInt(5);
-		b = rand.nextInt(5);
+		a = rand.nextInt(3);
+		b = rand.nextInt(3);
 
 		x = goToX[a];
 		y = goToY[b];
