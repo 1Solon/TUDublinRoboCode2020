@@ -125,6 +125,8 @@ public class Oberon extends AdvancedRobot
 
 	//A function that controls the goTo strategy of Oberon using passed cordinates from the movement controller in main
 	public void goTo (){
+		x = x - getX();
+		y = y - getY();
 
 		double goAngle = Utils.normalRelativeAngleDegrees(Math.atan2(x, y) - getHeadingRadians());
 
