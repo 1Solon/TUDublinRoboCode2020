@@ -2,6 +2,7 @@ package Oberon;
 import robocode.*;
 import robocode.util.Utils;
 import java.util.*;
+import robocode.Event;
 import static robocode.util.Utils.normalRelativeAngleDegrees;
 
 
@@ -28,6 +29,8 @@ public class Oberon extends AdvancedRobot
 
 		rangeX = rangeX / 25;
 		rangeY = rangeY / 25;
+
+		setTurnRadarRight(2560);
 
 		for(int i = 0 ; i < 25 ; i++)
 		{
@@ -70,17 +73,17 @@ public class Oberon extends AdvancedRobot
 	}//End movementStrategyController
 
 	//when a robot is scanned by the radar this method will run
-	public void onScannedRobot(ScannedRobotEvent e)
+	public void onScannedRobot(ScannedRobotEvent ScannedRobotEvent)
 	{
 
-		if(isSentryRobot == false)
+		if(!ScannedRobotEvent.isSentryRobot())
 		{
 
 		scanDirection *= -1; // changes value from 1 to -1
 		setTurnRadarRight(2560 * scanDirection);
 
 		//turns gun towards enemy
-		setTurnGunRight(getRadarHeading() - getGunHeading() + e.getBearing());
+		setTurnGunRight(getRadarHeading() - getGunHeading() + ScannedRobotEvent.getBearing());
 
 		//attacks enemy
 		attack();
