@@ -82,11 +82,10 @@ public class Oberon extends AdvancedRobot
 		scanDirection *= -1; // changes value from 1 to -1
 		setTurnRadarRight(2560 * scanDirection);
 
-		//turns gun towards enemy
-		setTurnGunRight(getRadarHeading() - getGunHeading() + ScannedRobotEvent.getBearing());
-
 		//attacks enemy
-		attack();
+		double absoluteBearing = getHeadingRadians() + ScannedRobotEvent.getBearingRadians();
+		setTurnGunRightRadians(Utils.normalRelativeAngle(absoluteBearing - getGunHeadingRadians() + (ScannedRobotEvent.getVelocity() * Math.sin(ScannedRobotEvent.getHeadingRadians() - absoluteBearing) / 13.0)));
+		setFire(3.0);
 
 		} //end sentry check
 		else
@@ -97,22 +96,6 @@ public class Oberon extends AdvancedRobot
 		} //end else
 
 	} // end scanned robot event/method
-
-	//shoots at the enemy
-	public void attack()
-	{
-
-
-		//checks if the gun is ready to fire
-		if(getGunHeat() == 0)
-		{
-
-			fire(1);
-
-		} //end if
-
-
-	} //end attack
 
 	//when Oberon is hit by a bullit this method will run
 	public void onHitByBullet(HitByBulletEvent e)
