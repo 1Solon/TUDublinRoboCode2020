@@ -120,13 +120,13 @@ public class Oberon extends AdvancedRobot
 
 	} //end when hit by bullit event/method
 
-	//when robot hits wall
-	public void onHitWall(HitWallEvent e)
+	//when robot hits another robot
+	public void onHitRobot(HitWallEvent e)
 	{
 
-		//TEMP
+		setBack(10);
 
-	} //end on hit wall event/method
+	} //end on hit robot event/method
 
 	//A function that controls the goTo strategy of Oberon using passed cordinates from the movement controller in main
 	public void goTo (){
