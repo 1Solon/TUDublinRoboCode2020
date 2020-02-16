@@ -16,8 +16,8 @@ public class Oberon extends AdvancedRobot
 	double x, y, h, rangeX, rangeY;
 	byte scanDirection = -1;
 	int a, b;
-	double[] goToX = new double[25];
-	double[] goToY = new double[25];
+	double[] goToX = new double[5];
+	double[] goToY = new double[5];
 
 	//main
 	public void run(){
