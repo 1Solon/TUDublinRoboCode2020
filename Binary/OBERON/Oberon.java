@@ -26,10 +26,10 @@ public class Oberon extends AdvancedRobot
 		rangeX = getBattleFieldWidth() - (getSentryBorderSize() * 2);
 		rangeY = getBattleFieldHeight() - (getSentryBorderSize() * 2);
 
-		rangeX = rangeX / 25;
-		rangeY = rangeY / 25;
+		rangeX = rangeX / 5;
+		rangeY = rangeY / 5;
 
-		for(int i = 0 ; i < 25 ; i++)
+		for(int i = 0 ; i < 5 ; i++)
 		{
 
 			goToX[i] = rangeX / 4 + (rangeX * i) + getSentryBorderSize();
