@@ -73,10 +73,8 @@ public class Oberon extends AdvancedRobot
 	public void onScannedRobot(ScannedRobotEvent e)
 	{
 
-		/*
 		if(isSentryRobot == false)
 		{
-		*/
 
 		scanDirection *= -1; // changes value from 1 to -1
 		setTurnRadarRight(2560 * scanDirection);
@@ -87,13 +85,13 @@ public class Oberon extends AdvancedRobot
 		//attacks enemy
 		attack();
 
-		/*
 		} //end sentry check
 		else
 		{
 
+			setTurnRadarRight(2560);
+
 		} //end else
-		*/
 
 	} // end scanned robot event/method
 
@@ -109,6 +107,7 @@ public class Oberon extends AdvancedRobot
 			fire(1);
 
 		} //end if
+
 
 	} //end attack
 
