@@ -16,8 +16,8 @@ public class Oberon extends AdvancedRobot
 	double x, y, h, rangeX, rangeY;
 	byte scanDirection = -1;
 	int a, b;
-	double[] goToX = new double[5];
-	double[] goToY = new double[5];
+	double[] goToX = new double[25];
+	double[] goToY = new double[25];
 
 	//main
 	public void run(){
@@ -26,10 +26,10 @@ public class Oberon extends AdvancedRobot
 		rangeX = getBattleFieldWidth() - (getSentryBorderSize() * 2);
 		rangeY = getBattleFieldHeight() - (getSentryBorderSize() * 2);
 
-		rangeX = rangeX / 5;
-		rangeY = rangeY / 5;
+		rangeX = rangeX / 25;
+		rangeY = rangeY / 25;
 
-		for(int i = 0 ; i < 5 ; i++)
+		for(int i = 0 ; i < 25 ; i++)
 		{
 
 			goToX[i] = rangeX / 4 + (rangeX * i) + getSentryBorderSize();
