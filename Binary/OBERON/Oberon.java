@@ -32,8 +32,8 @@ public class Oberon extends AdvancedRobot
 		for(int i = 0 ; i < 3 ; i++)
 		{
 
-			goToX[i] = rangeX / 2 + (rangeX * i) + getSentryBorderSize();
-			goToY[i] = rangeY / 2 + (rangeY * i) + getSentryBorderSize();
+			goToX[i] = rangeX / 4 + (rangeX * i) + getSentryBorderSize();
+			goToY[i] = rangeY / 4 + (rangeY * i) + getSentryBorderSize();
 
 		} //end for
 
