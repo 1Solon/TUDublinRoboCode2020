@@ -3,12 +3,20 @@ import robocode.*;
 import robocode.util.Utils;
 import java.util.*;
 import robocode.Event;
+import java.awt.*;
 import static robocode.util.Utils.normalRelativeAngleDegrees;
 
 
+
 /**
- * Oberon - a robot by (Alan Byju, Paul Geoghegan and Saul Burgess)
- */
+ * Oberon - Decision tree based melee (1v1) robot
+ * <p>
+ * Moves around the central grid within the borderzone, and uses it's decision tree to decide upon optimal strategies for combat
+ *
+ * @author Paul Geoghegan
+ * @author Saul Burgess
+ * @author Alan Byju
+ */
 
 
 public class Oberon extends AdvancedRobot
@@ -22,7 +30,10 @@ public class Oberon extends AdvancedRobot
 
 	//main
 	public void run(){
-		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
+		setBodyColor(Color.green);
+		setGunColor(Color.green);
+		setRadarColor(Color.green);
+		setScanColor(Color.green);
 
 		rangeX = getBattleFieldWidth() - (getSentryBorderSize() * 2);
 		rangeY = getBattleFieldHeight() - (getSentryBorderSize() * 2);
