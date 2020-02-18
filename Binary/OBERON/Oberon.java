@@ -2,9 +2,7 @@ package Oberon;
 import robocode.*;
 import robocode.util.Utils;
 import java.util.*;
-import robocode.Event;
 import java.awt.Color;
-import static robocode.util.Utils.normalRelativeAngleDegrees;
 
 
 /**
@@ -60,7 +58,7 @@ public class Oberon extends Robot
 		while(true){
 
 			//this turns the radar at the start of the battle
-			turnRadarRight(100000);
+			turnRadarRight(360);
 
 			//this checks if Oberon has finished moveing
 
@@ -76,6 +74,7 @@ public class Oberon extends Robot
 	}//End Run
 
 
+
 	//This function is the key component of Oberon, the basis of it's decision-tree. This function decides the best strategy for each scenario and executes them
 	void movementStrategyController(){
 
@@ -83,12 +82,8 @@ public class Oberon extends Robot
 		a = rand.nextInt(5);
 		b = rand.nextInt(5);
 
-		//this uses the random numbers generated to pick semi random coardinates inside of our valid playspace
-		x = goToX[a];
-		y = goToY[b];
-
 		// Goes to the goTo method
-		goTo();
+		goTo(goToX[a],goToY[b]);
 
 	}//End movementStrategyController
 
@@ -100,33 +95,15 @@ public class Oberon extends Robot
 		if(!ScannedRobotEvent.isSentryRobot())
 		{
 
-			//this oscilates the radar so that Oberon can keep track of the enemy robot
-			scanDirection *= -1; // changes value from 1 to -1
-			turnRadarRight(560 * scanDirection);
+			//Calculates teh values required for a firing solution to be calculated, also includes systems for converting import variables to radians
+			double BodyRadians = getHeading() * 0.0174533, GunRadians = getGunHeading() * 0.0174533, BearingRadians = ScannedRobotEvent.getBearing() * 0.0174533, absoluteBearing = BodyRadians + BearingRadians;
 
-			//Calculates heading in radians from degrees
-			double BodyRadians = getHeading() * 0.0174533;
-			double GunRadians = getGunHeading() * 0.0174533;
-			double BearingRadians = ScannedRobotEvent.getBearing() * 0.0174533;
-			double calc;
-
-			// This uses basic triganomitry to do a linier prediction of where the enemy will be and fires at it
-			double absoluteBearing = BodyRadians + BearingRadians;
-			calc = (Utils.normalRelativeAngle(absoluteBearing - GunRadians + (ScannedRobotEvent.getVelocity() * Math.sin(BodyRadians - absoluteBearing) / 13.0)));
-			calc = calc / 0.0174533;
-			turnGunRight(calc);
+			// This uses basic triganomitry to do a linear prediction of where the enemy will be and fires at that projected point
+			turnGunRight((Utils.normalRelativeAngle(absoluteBearing - GunRadians + (ScannedRobotEvent.getVelocity() * Math.sin(BodyRadians - absoluteBearing) / 13.0))) / 0.0174533);
 			fire(3.0);
 
-		} //end sentry check
-		else
-		{
-
-			//this keeps turning the radar if it has detected a sentry bot
-			turnRadarRight(560);
-
-		} //end else
-
-	} // end scanned robot event/method
+		}//End sentrychecker if
+	}//End scanned robot event/method
 
 
 	//when Oberon hits another robot
@@ -139,22 +116,19 @@ public class Oberon extends Robot
 	} //end on hit robot event/method
 
 	//A function that controls the goTo strategy of Oberon using passed cordinates from the movement controller in main
-	public void goTo (){
+	public void goTo (double x, double y){
 		//this gets the distance from our current and futuren X and Y coardinates
 		x = x - getX();
 		y = y - getY();
 
 		//Calc data for formulas
 		double BodyRadians = getHeading() * 0.0174533;
-		double calcturn;
 
 		//this figures out the angle that Oberon will need to turn in order to reach it's desired destination
 		double goAngle = Utils.normalRelativeAngleDegrees(Math.atan2(x, y) - BodyRadians);
 
 		//turns Oberon and moves forward to coardinates
-		calcturn=(Math.atan(Math.tan(goAngle)));
-		calcturn = calcturn / 0.0174533;
-		turnRight(calcturn);
+		turnRight((Math.atan(Math.tan(goAngle))) / 0.0174533);
 		ahead(Math.cos(goAngle) * Math.hypot(x, y));
 	}//End goTo
 
