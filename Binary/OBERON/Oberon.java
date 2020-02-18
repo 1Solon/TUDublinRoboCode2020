@@ -22,23 +22,17 @@ public class Oberon extends Robot
 	Random rand = new Random();
 	double x, y, h, rangeX, rangeY;
 	byte scanDirection = -1;
-	int a, b;
 
 	//declairs arrays that will dictate the grid that Oberon follows
-	double[] goToX = new double[5];
-	double[] goToY = new double[5];
+	double[] goToX = new double[5], goToY = new double[5];
 
 	//main
 	public void run(){
 		//sets colors for Oberon
-		setBodyColor(Color.green);
-		setGunColor(Color.green);
-		setRadarColor(Color.green);
-		setScanColor(Color.green);
+		setAllColors(Color.green);
 
 		//sets the area in the center of the arena that Oberon will stay within
-		rangeX = getBattleFieldWidth() - (getSentryBorderSize() * 2);
-		rangeY = getBattleFieldHeight() - (getSentryBorderSize() * 2);
+		double rangeX = getBattleFieldWidth() - (getSentryBorderSize() * 2), rangeY = getBattleFieldHeight() - (getSentryBorderSize() * 2);
 
 		//devides up the block in to small blocks that will form a grid
 		rangeX = rangeX / 5;
@@ -60,71 +54,63 @@ public class Oberon extends Robot
 			//this turns the radar at the start of the battle
 			turnRadarRight(360);
 
-			//this checks if Oberon has finished moveing
-
+			//this checks if Oberon has finished moving
 			if (getVelocity() < 1){
 
-				//goes to the movement stratagy controller
-				movementStrategyController();
+				//generates random coordinates to move to
+				int a = rand.nextInt(5), b = rand.nextInt(5);
 
-			}//End Getvelocity
+				x = goToX[a] - getX();
+				y = goToY[b] - getY();
 
+				//Turning is controlled by... liberal use of the inbuilt java trignometric functions. It calculates the desired heading by calculating the oppsite angle in a simulated triangle
+				turnRight((Math.atan(Math.tan(Utils.normalRelativeAngleDegrees(Math.atan2(x, y) - getHeading() * 0.0174533)))) / 0.0174533);
+
+				//Ahead is calculated via the same method as turning, just instead of the opposite angle, it is the opposite side
+				ahead(Math.cos(Utils.normalRelativeAngleDegrees(Math.atan2(x, y) - getHeading() * 0.0174533)) * Math.hypot(x, y));
+
+
+			}//End GetVelocity
+
+			//Triggers scan, this elminates a problem we had earlier onScannedRobot would cancel the current movement
+			scan();
 
 		}//End While
 	}//End Run
 
 
-
-	//This function is the key component of Oberon, the basis of it's decision-tree. This function decides the best strategy for each scenario and executes them
-	void movementStrategyController(){
-
-		//generates random numbers to choose what point Oberon will go to
-		a = rand.nextInt(5);
-		b = rand.nextInt(5);
-
-		// Goes to the goTo method
-		goTo(goToX[a],goToY[b]);
-
-	}//End movementStrategyController
-
 	//when a robot is scanned by the radar this method will run
 	public void onScannedRobot(ScannedRobotEvent ScannedRobotEvent)
 	{
 
-		//this checks if the scanned robot is a sentry bot or not
-		if(!ScannedRobotEvent.isSentryRobot())
+		//Checks if the enemy is outside the borderzone, if it is, don't fire at it
+		if (ScannedRobotEvent.getDistance() < 200)
 		{
+			//this checks if the scanned robot is a sentry bot or not
+			if(!ScannedRobotEvent.isSentryRobot())
+			{
 
-			//Calculates teh values required for a firing solution to be calculated, also includes systems for converting import variables to radians
-			double BodyRadians = getHeading() * 0.0174533, GunRadians = getGunHeading() * 0.0174533, BearingRadians = ScannedRobotEvent.getBearing() * 0.0174533, absoluteBearing = BodyRadians + BearingRadians;
+				//Calculates the values required for a firing solution to be calculated, also includes systems for converting import variables to radians
+				double BodyRadians = getHeading() * 0.0174533, GunRadians = getGunHeading() * 0.0174533, BearingRadians = ScannedRobotEvent.getBearing() * 0.0174533, absoluteBearing = BodyRadians + BearingRadians;
 
-			// This uses basic triganomitry to do a linear prediction of where the enemy will be and fires at that projected point
-			turnGunRight((Utils.normalRelativeAngle(absoluteBearing - GunRadians + (ScannedRobotEvent.getVelocity() * Math.sin(BodyRadians - absoluteBearing) / 13.0))) / 0.0174533);
-			fire(3.0);
+				// This uses basic triganomitry to do a linear prediction of where the enemy will be and fires at that projected point
+				turnGunRight((Utils.normalRelativeAngle(absoluteBearing - GunRadians + (ScannedRobotEvent.getVelocity() * Math.sin(BodyRadians - absoluteBearing) / 13.0))) / 0.0174533);
+				fire(3.0);
 
-		}//End sentrychecker if
+			}//End sentrychecker if
+
+		}//End distance checker
+
 	}//End scanned robot event/method
 
 
 	//when Oberon hits another robot
-	public void onHitRobot(HitWallEvent e)
+	public void onHitRobot(HitRobotEvent e)
 	{
 
 		//reverses Oberon by 10 if it colides with another robot
-		back(10);
+		back(50);
 
 	} //end on hit robot event/method
 
-	//A function that controls the goTo strategy of Oberon using passed cordinates from the movement controller in main
-	public void goTo (double x, double y){
-		//this gets the distance from our current and futuren X and Y cordinates
-		x = x - getX();
-		y = y - getY();
-
-		//Turning is controlled by... liberal use of the inbuilt java trignometric functions. It calculates the desired heading by calculating the oppsite angle in a simulated triangle
-		turnRight((Math.atan(Math.tan(Utils.normalRelativeAngleDegrees(Math.atan2(x, y) - getHeading() * 0.0174533)))) / 0.0174533);
-
-		//Ahead is calculated via the same method is turning, just instead of the opposite angle, it is the opposite side
-		ahead(Math.cos(Utils.normalRelativeAngleDegrees(Math.atan2(x, y) - getHeading() * 0.0174533)) * Math.hypot(x, y));
-	}//End goTo
 }//End Oberon
