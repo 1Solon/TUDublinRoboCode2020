@@ -50,9 +50,6 @@ public class Oberon extends Robot
 		//main loop
 		while(true){
 
-			//this turns the radar at the start of the battle
-			turnRadarRight(360);
-
 			//this checks if Oberon has finished moving
 			if (getVelocity() < 1){
 
@@ -66,6 +63,9 @@ public class Oberon extends Robot
 				ahead(Math.cos(Utils.normalRelativeAngleDegrees(Math.atan2(x, y) - getHeading() * 0.0174533)) * Math.hypot(x, y));
 
 			}//End GetVelocity
+
+			//this turns the radar at the start of the battle
+			turnRadarRight(360);
 
 			//Triggers scan, this elminates a problem we had earlier onScannedRobot would cancel the current movement
 			scan();
