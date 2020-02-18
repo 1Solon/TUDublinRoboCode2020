@@ -56,14 +56,14 @@ public class Oberon extends Robot
 			//this checks if Oberon has finished moving
 			if (getVelocity() < 1){
 
-				x = goToX[rand.nextInt(5)] - getX(), y = goToY[rand.nextInt(5)] - getY();
+				x = goToX[rand.nextInt(5)] - getX();
+				y = goToY[rand.nextInt(5)] - getY();
 
 				//Turning is controlled by... liberal use of the inbuilt java trignometric functions. It calculates the desired heading by calculating the oppsite angle in a simulated triangle
 				turnRight((Math.atan(Math.tan(Utils.normalRelativeAngleDegrees(Math.atan2(x, y) - getHeading() * 0.0174533)))) / 0.0174533);
 
 				//Ahead is calculated via the same method as turning, just instead of the opposite angle, it is the opposite side
 				ahead(Math.cos(Utils.normalRelativeAngleDegrees(Math.atan2(x, y) - getHeading() * 0.0174533)) * Math.hypot(x, y));
-
 
 			}//End GetVelocity
 
