@@ -27,13 +27,8 @@ public class Oberon extends Robot
 	int a, b;
 
 	//declairs arrays that will dictate the grid that Oberon follows
-	double[] goToX = new double[25];
-	double[] goToY = new double[25];
-
-	//Gets heading and degrees in radians
-	double BodyRadians;
-	double GunRadians;
-	double BearingRadians;
+	double[] goToX = new double[5];
+	double[] goToY = new double[5];
 
 	//main
 	public void run(){
@@ -48,29 +43,34 @@ public class Oberon extends Robot
 		rangeY = getBattleFieldHeight() - (getSentryBorderSize() * 2);
 
 		//devides up the block in to small blocks that will form a grid
-		rangeX = rangeX / 25;
-		rangeY = rangeY / 25;
+		rangeX = rangeX / 5;
+		rangeY = rangeY / 5;
 
 		//this loop creates the points that Oberon will use
-		for(int i = 0 ; i < 25 ; i++)
+		for(int i = 0 ; i < 5 ; i++)
 		{
 
-			//this saves the coardinates in the arrays which will be 25 points * 25 points for a total of 625 points
+			//this saves the coardinates in the arrays which will be 5 points * 5 points for a total of 65 points
 			goToX[i] = rangeX / 4 + (rangeX * i) + getSentryBorderSize();
 			goToY[i] = rangeY / 4 + (rangeY * i) + getSentryBorderSize();
 
 		} //end for
 
-		//this turns the radar at the start of the battle
-		turnRadarRight(2560);
-
 		//main loop
 		while(true){
 
+			//this turns the radar at the start of the battle
+			turnRadarRight(100000);
+
 			//this checks if Oberon has finished moveing
+
+			if (getVelocity() < 1){
 
 				//goes to the movement stratagy controller
 				movementStrategyController();
+
+			}//End Getvelocity
+
 
 		}//End While
 	}//End Run
@@ -80,8 +80,8 @@ public class Oberon extends Robot
 	void movementStrategyController(){
 
 		//generates random numbers to choose what point Oberon will go to
-		a = rand.nextInt(25);
-		b = rand.nextInt(25);
+		a = rand.nextInt(5);
+		b = rand.nextInt(5);
 
 		//this uses the random numbers generated to pick semi random coardinates inside of our valid playspace
 		x = goToX[a];
@@ -102,24 +102,27 @@ public class Oberon extends Robot
 
 			//this oscilates the radar so that Oberon can keep track of the enemy robot
 			scanDirection *= -1; // changes value from 1 to -1
-			turnRadarRight(2560 * scanDirection);
+			turnRadarRight(560 * scanDirection);
 
 			//Calculates heading in radians from degrees
 			double BodyRadians = getHeading() * 0.0174533;
 			double GunRadians = getGunHeading() * 0.0174533;
 			double BearingRadians = ScannedRobotEvent.getBearing() * 0.0174533;
+			double calc;
 
 			// This uses basic triganomitry to do a linier prediction of where the enemy will be and fires at it
 			double absoluteBearing = BodyRadians + BearingRadians;
-			setTurnGunRightRadians(Utils.normalRelativeAngle(absoluteBearing - GunRadians + (ScannedRobotEvent.getVelocity() * Math.sin(BodyRadians - absoluteBearing) / 13.0)));
-			setFire(3.0);
+			calc = (Utils.normalRelativeAngle(absoluteBearing - GunRadians + (ScannedRobotEvent.getVelocity() * Math.sin(BodyRadians - absoluteBearing) / 13.0)));
+			calc = calc / 0.0174533;
+			turnGunRight(calc);
+			fire(3.0);
 
 		} //end sentry check
 		else
 		{
 
 			//this keeps turning the radar if it has detected a sentry bot
-			setTurnRadarRight(2560);
+			turnRadarRight(560);
 
 		} //end else
 
@@ -131,7 +134,7 @@ public class Oberon extends Robot
 	{
 
 		//reverses Oberon by 10 if it colides with another robot
-		setBack(10);
+		back(10);
 
 	} //end on hit robot event/method
 
@@ -141,12 +144,18 @@ public class Oberon extends Robot
 		x = x - getX();
 		y = y - getY();
 
+		//Calc data for formulas
+		double BodyRadians = getHeading() * 0.0174533;
+		double calcturn;
+
 		//this figures out the angle that Oberon will need to turn in order to reach it's desired destination
-		double goAngle = Utils.normalRelativeAngleDegrees(Math.atan2(x, y) - getHeadingRadians());
+		double goAngle = Utils.normalRelativeAngleDegrees(Math.atan2(x, y) - BodyRadians);
 
 		//turns Oberon and moves forward to coardinates
-		setTurnRightRadians(Math.atan(Math.tan(goAngle)));
-		setAhead(Math.cos(goAngle) * Math.hypot(x, y));
+		calcturn=(Math.atan(Math.tan(goAngle)));
+		calcturn = calcturn / 0.0174533;
+		turnRight(calcturn);
+		ahead(Math.cos(goAngle) * Math.hypot(x, y));
 	}//End goTo
 
 }//End Oberon
