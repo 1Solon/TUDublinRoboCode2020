@@ -43,8 +43,7 @@ public class Oberon extends Robot
 		{
 
 			//this saves the coardinates in the arrays which will be 5 points * 5 points for a total of 65 points
-			goToX[i] = rangeX / 4 + (rangeX * i) + getSentryBorderSize();
-			goToY[i] = rangeY / 4 + (rangeY * i) + getSentryBorderSize();
+			goToX[i] = goToY[i] = rangeX / 4 + (rangeX * i) + getSentryBorderSize();
 
 		} //end for
 
