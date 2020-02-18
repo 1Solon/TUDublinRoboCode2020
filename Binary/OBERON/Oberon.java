@@ -3,7 +3,7 @@ import robocode.*;
 import robocode.util.Utils;
 import java.util.*;
 import robocode.Event;
-import java.awt.*;
+import java.awt.Color;
 import static robocode.util.Utils.normalRelativeAngleDegrees;
 
 
@@ -18,7 +18,7 @@ import static robocode.util.Utils.normalRelativeAngleDegrees;
  */
 
 
-public class Oberon extends AdvancedRobot
+public class Oberon extends Robot
 {
 	//imports rand and declairs variables
 	Random rand = new Random();
@@ -29,6 +29,11 @@ public class Oberon extends AdvancedRobot
 	//declairs arrays that will dictate the grid that Oberon follows
 	double[] goToX = new double[25];
 	double[] goToY = new double[25];
+
+	//Gets heading and degrees in radians
+	double BodyRadians;
+	double GunRadians;
+	double BearingRadians;
 
 	//main
 	public void run(){
@@ -57,22 +62,16 @@ public class Oberon extends AdvancedRobot
 		} //end for
 
 		//this turns the radar at the start of the battle
-		setTurnRadarRight(2560);
+		turnRadarRight(2560);
 
 		//main loop
 		while(true){
 
 			//this checks if Oberon has finished moveing
-			if(getDistanceRemaining() < 1)
-			{
 
 				//goes to the movement stratagy controller
 				movementStrategyController();
 
-			} //end if
-
-			//makes sure everything excicutes
-			execute();
 		}//End While
 	}//End Run
 
@@ -103,11 +102,16 @@ public class Oberon extends AdvancedRobot
 
 			//this oscilates the radar so that Oberon can keep track of the enemy robot
 			scanDirection *= -1; // changes value from 1 to -1
-			setTurnRadarRight(2560 * scanDirection);
+			turnRadarRight(2560 * scanDirection);
+
+			//Calculates heading in radians from degrees
+			double BodyRadians = getHeading() * 0.0174533;
+			double GunRadians = getGunHeading() * 0.0174533;
+			double BearingRadians = ScannedRobotEvent.getBearing() * 0.0174533;
 
 			// This uses basic triganomitry to do a linier prediction of where the enemy will be and fires at it
-			double absoluteBearing = getHeadingRadians() + ScannedRobotEvent.getBearingRadians();
-			setTurnGunRightRadians(Utils.normalRelativeAngle(absoluteBearing - getGunHeadingRadians() + (ScannedRobotEvent.getVelocity() * Math.sin(ScannedRobotEvent.getHeadingRadians() - absoluteBearing) / 13.0)));
+			double absoluteBearing = BodyRadians + BearingRadians;
+			setTurnGunRightRadians(Utils.normalRelativeAngle(absoluteBearing - GunRadians + (ScannedRobotEvent.getVelocity() * Math.sin(BodyRadians - absoluteBearing) / 13.0)));
 			setFire(3.0);
 
 		} //end sentry check
