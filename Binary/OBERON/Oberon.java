@@ -117,19 +117,14 @@ public class Oberon extends Robot
 
 	//A function that controls the goTo strategy of Oberon using passed cordinates from the movement controller in main
 	public void goTo (double x, double y){
-		//this gets the distance from our current and futuren X and Y coardinates
+		//this gets the distance from our current and futuren X and Y cordinates
 		x = x - getX();
 		y = y - getY();
 
-		//Calc data for formulas
-		double BodyRadians = getHeading() * 0.0174533;
+		//Turning is controlled by... liberal use of the inbuilt java trignometric functions. It calculates the desired heading by calculating the oppsite angle in a simulated triangle
+		turnRight((Math.atan(Math.tan(Utils.normalRelativeAngleDegrees(Math.atan2(x, y) - getHeading() * 0.0174533)))) / 0.0174533);
 
-		//this figures out the angle that Oberon will need to turn in order to reach it's desired destination
-		double goAngle = Utils.normalRelativeAngleDegrees(Math.atan2(x, y) - BodyRadians);
-
-		//turns Oberon and moves forward to coardinates
-		turnRight((Math.atan(Math.tan(goAngle))) / 0.0174533);
-		ahead(Math.cos(goAngle) * Math.hypot(x, y));
+		//Ahead is calculated via the same method is turning, just instead of the opposite angle, it is the opposite side
+		ahead(Math.cos(Utils.normalRelativeAngleDegrees(Math.atan2(x, y) - getHeading() * 0.0174533)) * Math.hypot(x, y));
 	}//End goTo
-
 }//End Oberon
