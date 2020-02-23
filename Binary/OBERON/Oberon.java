@@ -32,18 +32,18 @@ public class Oberon extends Robot
 		setAllColors(Color.green);
 
 		//sets the area in the center of the arena that Oberon will stay within
-		double rangeX = getBattleFieldWidth() - (getSentryBorderSize() * 2), rangeY = getBattleFieldHeight() - (getSentryBorderSize() * 2);
+		double range = getBattleFieldWidth() - (getSentryBorderSize() * 2)
 
 		//devides up the block in to small blocks that will form a grid
-		rangeX = rangeX / 5;
-		rangeY = rangeY / 5;
+		range = range / 5;
+
 
 		//this loop creates the points that Oberon will use
 		for(int i = 0 ; i < 5 ; i++)
 		{
 
-			//this saves the coardinates in the arrays which will be 5 points * 5 points for a total of 65 points
-			goToX[i] = goToY[i] = rangeX / 4 + (rangeX * i) + getSentryBorderSize();
+			//this saves the coardinates in the arrays which will be 5 points * 5 points for a total of 25 points
+			goToX[i] = goToY[i] = range / 4 + (rangeX * i) + getSentryBorderSize();
 
 		} //end for
 
