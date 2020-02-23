@@ -106,6 +106,8 @@ public class Oberon extends Robot
 		//reverses Oberon by 10 if it colides with another robot
 		back(50);
 
+		goTo((ggetBattlefieldWidth/2, getBattlefieldHeight/2);
+
 	} //end on hit robot event/method
 
 }//End Oberon
