@@ -106,6 +106,15 @@ public class Oberon extends Robot
 		//reverses Oberon by 10 if it colides with another robot
 		back(50);
 
+				x = goToX[2] - getX();
+				y = goToY[2] - getY();
+
+				//Turning is controlled by... liberal use of the inbuilt java trignometric functions. It calculates the desired heading by calculating the oppsite angle in a simulated triangle
+				turnRight((Math.atan(Math.tan(Utils.normalRelativeAngleDegrees(Math.atan2(x, y) - getHeading() * 0.0174533)))) / 0.0174533);
+
+				//Ahead is calculated via the same method as turning, just instead of the opposite angle, it is the opposite side
+				ahead(Math.cos(Utils.normalRelativeAngleDegrees(Math.atan2(x, y) - getHeading() * 0.0174533)) * Math.hypot(x, y));
+
 	} //end on hit robot event/method
 
 }//End Oberon
