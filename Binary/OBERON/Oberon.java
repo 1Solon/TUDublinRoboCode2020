@@ -32,18 +32,18 @@ public class Oberon extends Robot
 		setAllColors(Color.green);
 
 		//sets the area in the center of the arena that Oberon will stay within
-		double range = getBattleFieldWidth() - (getSentryBorderSize() * 2)
+		double rangeX = getBattleFieldWidth() - (getSentryBorderSize() * 2), rangeY = getBattleFieldHeight() - (getSentryBorderSize() * 2);
 
 		//devides up the block in to small blocks that will form a grid
-		range = range / 5;
-
+		rangeX = rangeX / 5;
+		rangeY = rangeY / 5;
 
 		//this loop creates the points that Oberon will use
 		for(int i = 0 ; i < 5 ; i++)
 		{
 
-			//this saves the coardinates in the arrays which will be 5 points * 5 points for a total of 25 points
-			goToX[i] = goToY[i] = range / 4 + (rangeX * i) + getSentryBorderSize();
+			//this saves the coardinates in the arrays which will be 5 points * 5 points for a total of 65 points
+			goToX[i] = goToY[i] = rangeX / 4 + (rangeX * i) + getSentryBorderSize();
 
 		} //end for
 
@@ -105,15 +105,6 @@ public class Oberon extends Robot
 
 		//reverses Oberon by 10 if it colides with another robot
 		back(50);
-
-		x = goToX[rand.nextInt(5)] - getX();
-		y = goToY[rand.nextInt(5)] - getY();
-
-		//Turning is controlled by... liberal use of the inbuilt java trignometric functions. It calculates the desired heading by calculating the oppsite angle in a simulated triangle
-		turnRight((Math.atan(Math.tan(Utils.normalRelativeAngleDegrees(Math.atan2(x, y) - getHeading() * 0.0174533)))) / 0.0174533);
-
-		//Ahead is calculated via the same method as turning, just instead of the opposite angle, it is the opposite side
-		ahead(Math.cos(Utils.normalRelativeAngleDegrees(Math.atan2(x, y) - getHeading() * 0.0174533)) * Math.hypot(x, y));
 
 	} //end on hit robot event/method
 
