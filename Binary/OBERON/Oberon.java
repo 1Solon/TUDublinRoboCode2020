@@ -35,14 +35,13 @@ public class Oberon extends Robot
 		double rangeX = getBattleFieldWidth() - (getSentryBorderSize() * 2), rangeY = getBattleFieldHeight() - (getSentryBorderSize() * 2);
 
 		//devides up the block in to small blocks that will form a grid
-		rangeX = rangeX / 5;
-		rangeY = rangeY / 5;
+		rangeX = rangeY = rangeY / 5;
 
 		//this loop creates the points that Oberon will use
 		for(int i = 0 ; i < 5 ; i++)
 		{
 
-			//this saves the coardinates in the arrays which will be 5 points * 5 points for a total of 65 points
+			//this saves the coardinates in the arrays which will be 5 points * 5 points for a total of 25 points
 			goToX[i] = goToY[i] = rangeX / 4 + (rangeX * i) + getSentryBorderSize();
 
 		} //end for
@@ -64,7 +63,7 @@ public class Oberon extends Robot
 
 			}//End GetVelocity
 
-			//this turns the radar at the start of the battle
+			//this turns the radar
 			turnRadarRight(360);
 
 			//Triggers scan, this elminates a problem we had earlier onScannedRobot would cancel the current movement
@@ -92,7 +91,7 @@ public class Oberon extends Robot
 				turnGunRight((Utils.normalRelativeAngle(absoluteBearing - GunRadians + (ScannedRobotEvent.getVelocity() * Math.sin(BodyRadians - absoluteBearing) / 13.0))) / 0.0174533);
 				fire(3.0);
 
-			}//End sentrychecker if
+			}//End sentry checker if
 
 		}//End distance checker
 
@@ -103,7 +102,7 @@ public class Oberon extends Robot
 	public void onHitRobot(HitRobotEvent e)
 	{
 
-		//reverses Oberon by 10 if it colides with another robot
+		//reverses Oberon by 50 if it colides with another robot
 		back(50);
 
 		x = goToX[2] - getX();
