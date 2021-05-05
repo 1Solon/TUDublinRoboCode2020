@@ -1,0 +1,84 @@
+robowiki.net/wiki/Robocode/My_First_Robot
+
+The first step is to open up the Robot Editor. From the main Robocode screen, click on the Robot menu, then select Source Editor. 
+When the editor window comes up, click on the File menu, then select New Robot. 
+In the dialogs that follow, type in a name for your robot, and enter your initials. 
+Voila! You now see the code for your own robot. 
+A new robot 
+File:EditorMyFirstRobot
+Enlarge
+Editing your new robot
+This is what you should be looking at: 
+1. 
+package pkg;
+2. 
+3. 
+import robocode.*;
+4. 
+5. 
+public class YourRobotNameHere extends Robot {
+6. 
+    public void run() {
+7. 
+        while (true) {
+8. 
+            ahead(100);
+9. 
+            turnGunRight(360);
+10. 
+            back(100);
+11. 
+            turnGunRight(360);
+12. 
+        }
+13. 
+    }
+14. 
+15. 
+    public void onScannedRobot(ScannedRobotEvent e) {
+16. 
+        fire(1);
+17. 
+    }
+18. 
+}
+We're only concerned with lines 8-11 and 16 here... you won't need to change anything else. Not that much, right? 
+By the way, if you're really concerned about the rest of it, here it is: 
+• import robocode.*; ‒ Says that you're going to use Robocode objects in your robot. 
+• public class MyFirstRobot extends Robot ‒ Says the object I'm describing here is a type of Robot, named MyFirstRobot. 
+• public void run() { ... } ‒ The game calls your run() method when the battle begins. 
+• { ... } ‒ "Curly brackets" ( { } ) group things together. In this case, they're grouping together all the code for the robot. 
+Let's move somewhere 
+Let's add a couple lines so that it will do something. 
+First, we'll examine the run() method: 
+while(true) {
+    ahead(100);
+    turnGunRight(360);
+    back(100);
+    turnGunRight(360);
+}
+while(true) { ... } means: "Do the stuff inside my curly brackets, forever". 
+So this robot will: 
+1. Move ahead 100 pixels. 
+2. Turn the gun right by 360 degrees. 
+3. Move back 100 pixels. 
+4. Turn the gun right by 360 degrees again. 
+The robot will continue doing this over and over and over, until it dies, due to the while(true) statement. 
+Not so bad, right? 
+Fire at will! 
+When our radar scans a robot, we want to fire: 
+public void onScannedRobot(ScannedRobotEvent e) {
+    fire(1);
+}
+The game calls your onScannedRobot() method whenever ‒ during one of the actions ‒ you see another robot. It sends along an event that can tell us lots of information about the robot ‒ its name, how much life it has, where it is, where it's heading, how fast it's going, etc. 
+However, since this is a simple robot, we're not going to look at any of that stuff. Let's just fire! 
+Compile your robot 
+First, save your robot by selecting the Save in the File menu. Follow the prompts to save your robot. 
+Now, compile it by selecting Compile in the Compiler menu. 
+If your robot compiles without any errors, you can start a new battle with your robot. Start a new battle by selecting New in the Battle menu. (If you cannot see your robot, you might have to refresh the list of robots by selecting Options -> Clean robot cache). Add your robot to the battle together with at least one other robot as e.g. sample.Target, and press the Start Battle button to let the games begin! 
+What's next? 
+You should have a look at all the sample robots to see how certain things are done. 
+After you have gotten used to Robocode, you will probably want to switch your robot to an AdvancedRobot. Read the FAQ to learn what that is. 
+After that, you'll have to decide whether your bot will be a 1v1 bot (a duelist), or a melee bot (fights multiple opponents). One-on-one bots are simpler, and you'll want to start with them. 
+You'll eventually want to look at the Robocode API to see all the other things your robot can do. 
+Above all, good luck, have fun, and enjoy! 
